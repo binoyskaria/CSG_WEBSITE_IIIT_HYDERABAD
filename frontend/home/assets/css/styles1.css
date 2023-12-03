@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap");
+
+
+
+/* .glowtext {
+  position: relative;
+  font-size: 5rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 80px;
+  cursor: pointer;
+}
+
+:root {
+  --clr: #1af7ff;
+}
+
+.text {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+  transition: 0.1s ease;
+  transition-delay: 0.25s;
+}
+
+.hover-text {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  color: var(--clr);
+  overflow: hidden;
+  border-right: 6px solid var(--clr);
+  transition: 0.5s ease-in-out;
+}
+
+.glowtext:hover .hover-text {
+  width: 100%;
+  filter: drop-shadow(0 0 40px var(--clr));
+}
+.glowtext:hover .text {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0);
+} */
+
+#about-csg{
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+  transition: background-color .5s, color .5s;
+}
+#about-csg:hover {
+  /* background-color: #00fffc;  */
+  /* background-color: #c8eeed;  */
+  background-color: rgba(200, 238, 237, 0.5); /* Adjust the alpha (last) value for transparency */
+  color: black;
+  border-radius: 10px;
+}
+
+#research-areas{
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+  transition: background-color .5s, color .5s;
+}
+#research-areas:hover {
+  /* background-color: #00fffc;  */
+  /* background-color: #c8eeed;  */
+  background-color: rgba(200, 238, 237, 0.5); /* Adjust the alpha (last) value for transparency */
+  color: black;
+  border-radius: 10px;
+}
+
+#our-vision{
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+  transition: background-color .5s, color .5s;
+}
+#our-vision:hover {
+  /* background-color: #00fffc;  */
+  /* background-color: #c8eeed;  */
+  background-color: rgba(200, 238, 237, 0.5); /* Adjust the alpha (last) value for transparency */
+  color: black;
+  border-radius: 10px;
+}
+
+/* General styling for the faculty sections */
+/* .wrapper.style1.special .col-4 {
+  text-align: center; 
+  margin-bottom: 20px; 
+} */
+
+/* Styling for images */
+.wrapper.style1.special img {
+  height: auto; /* Maintain aspect ratio */
+  max-width: 370px; /* Maximum width for the images */
+  margin: 0 auto; /* Center images */
+  border-radius: 30px; /* Rounded corners for images */
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth transition for hover effect and filter */
+  /* box-shadow: 0 0 8px 0 rgba(235, 91, 91, 0.5); */
+  /* border: 2px solid #fdfdfd; */
+  border: 4px double #ffffff;
+}
+
+.wrapper.style1.special img:hover {
+  transform: scale(1.08) rotate(5deg); /* Slightly increase the size and rotate */
+  box-shadow: 0 4px 8px rgba(145, 142, 142, 0.8); /* Add shadow for depth */
+  filter: brightness(80%); /* Increase brightness and contrast */
+  /* box-shadow: 0 0 8px 0 rgba(138, 4, 4, 0.5); */
+}
+
+
+/* Styling for faculty names */
+.wrapper.style1.special h3 {
+  margin-top: 30px; /* Space between image and name */
+  color: #c6c9cc; /* Example color for names */
+}
+
+/* Styling for faculty details */
+.wrapper.style1.special p {
+  color: #938686; /* Example color for details */
+}
+
+
