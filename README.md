@@ -1,8 +1,8 @@
 steps to run
 ===============
 1: RUN MONGODB SERVER (steps)
-    a: In terminal , type "sudo systemctl start mongod" 
-    b: press enter 
+    a: In terminal , type "sudo systemctl start mongod" <br>
+    b: press enter <br>
        (run at any location its fine, mongodb community server should be installed to run this)
 
 2: START BACKEND SERVER (steps)
