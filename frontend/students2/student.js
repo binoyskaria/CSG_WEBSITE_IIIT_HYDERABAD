@@ -1,5 +1,4 @@
-
-
+// Function to create student elements
 function createStudent(name, degree, imgSrc) {
   const studentContainer = document.getElementById("students-container");
 
@@ -25,9 +24,26 @@ function createStudent(name, degree, imgSrc) {
   studentContainer.appendChild(studentDiv);
 }
 
-// Generate binary codes
+// Function to fetch student data from API and create student elements
+async function fetchAndCreateStudents() {
+  const apiEndpoint = 'http://localhost:3000/api/download/all';
 
+  try {
+    const response = await fetch(apiEndpoint);
+    const studentsData = await response.json();
 
+    studentsData.forEach((student) => {
+      createStudent(student.imageName, student.description, `data:image/*;base64,${student.imageData}`);
+    });
+  } catch (error) {
+    console.error('Error fetching student data:', error);
+  }
+}
+
+// Call the function to fetch and create students
+fetchAndCreateStudents();
+
+// Function to generate binary codes (unchanged)
 function generateBinaryCodes() {
   const binaryCodesContainer = document.getElementById("binary-codes-container");
 
@@ -41,25 +57,5 @@ function generateBinaryCodes() {
   }
 }
 
-
-createStudent("Adhish Singla", "B.Tech. Hons. + MS", "student_image/adhish.jpg");
-createStudent("Shrenik Jain", "B.Tech. Hons. + MS", "student_image/shrenik.jpg");
-createStudent("Vinamra Banera", "B.Tech. Hons. + MS", "student_image/vinamra.jpg");
-createStudent("Yash Khandelwal", "B.Tech. Hons. + MS", "student_image/yash.jpg");
-createStudent("Ziaul Choudhury", "Ph.D.", "student_image/ziaul.png");
-createStudent("Sai Manish", "B.Tech. Hons.", "student_image/manish.jpg");
-createStudent("Karthik Ganti", "B.Tech. Hons.", "student_image/karthik.jpg");
-createStudent("Sai Sukumar", "B.Tech. Hons.", "student_image/sukumar.jpg");
-createStudent("Sreevatsav", "B.Tech. Hons.", "student_image/srivatsava.jpg");
-createStudent("Akshaj Gupta", "B.Tech. Hons. + MS", "student_image/akshaj.jpg");
-createStudent("Amal Santosh", "B.Tech. Hons. + MS", "student_image/amal.jpg");
-createStudent("Praneeth", "B.Tech. Hons.", "student_image/praneeth.jpg");
-createStudent("Shashwat Khandelwal", "B.Tech. Hons. + MS", "student_image/khandelwal.jpg");
-createStudent("Shashwat Srivastava", "B.Tech. Hons. + MS", "student_image/srivatsava.jpg");
-createStudent("Pratik Jain", "B.Tech. Hons.", "student_image/pratik.jpg");
-createStudent("Anish Gulati", "B.Tech. Hons. + MS", "student_image/anish.jpg");
-createStudent("Kunal Garg", "B.Tech. Hons.", "student_image/kunal.jpg");
-createStudent("Geethika", "B.Tech. Hons.", "student_image/geetika.jpg");
-
+// Call the function to generate binary codes
 generateBinaryCodes();
-
