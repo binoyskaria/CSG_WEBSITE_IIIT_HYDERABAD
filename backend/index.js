@@ -6,6 +6,7 @@ const Image = require('./models/Image');
 const path = require('path');
 const fs = require('fs');
 const Publication = require('./models/Publication');
+const csv = require('csv-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -141,12 +142,12 @@ async function initializeServer() {
     // Clear the "Image" collection
     const imageCount = await Image.countDocuments({ /* your criteria */ });
 
-if (imageCount > 0) {
-  await Image.deleteMany({ /* your criteria */ });
-  console.log(`${imageCount} images deleted.`);
-} else {
-  console.log('No images to delete.');
-}
+    if (imageCount > 0) {
+      await Image.deleteMany({ /* your criteria */ });
+      console.log(`${imageCount} images deleted.`);
+    } else {
+      console.log('No images to delete.');
+    }
 
     // await Image.deleteMany({});
 
@@ -170,10 +171,10 @@ if (imageCount > 0) {
 app.get('/api/getPublications', async (req, res) => {
   try {
     console.log('Fetching publications...');
-    
+
     // Assuming you have a Publication model with appropriate fields
     const publications = await Publication.find();
-    
+
     console.log('Publications fetched:', publications);
 
     const publicationEvents = publications.map(publication => ({
