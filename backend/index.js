@@ -228,11 +228,7 @@ app.post('/api/addPublication', async (req, res) => {
 initializeServer();
 
 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
 
-initializeServer();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
