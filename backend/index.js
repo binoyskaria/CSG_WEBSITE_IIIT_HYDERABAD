@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost:27017/images', {
 });
 
 app.use(cors());
+app.use(express.json());
 
 const storage = multer.diskStorage({
   destination: './uploads/',
