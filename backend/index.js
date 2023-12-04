@@ -163,13 +163,20 @@ async function initializeServer() {
         // Read files in the "uploads" folder and save them to the database
         const files = fs.readdirSync('./uploads/');
         for (const file of files) {
-          const imageDescription = imageData.find((data) => data.imagename === file)?.imagedescription || '';
-          const newImage = new Image({
-            imageUrl: file,
-            imageDescription: imageDescription,
-          });
-          await newImage.save();
-          console.log(`Step 3: Saved ${file} (${imageDescription}) to the database.`);
+          const imageRecord = imageData.find((data) => data.imagename === file);
+
+          if (imageRecord) {
+            const { name, imagedescription } = imageRecord;
+            const newImage = new Image({
+              imageUrl: file,
+              name: name || '',
+              imageDescription: imagedescription || '',
+            });
+            await newImage.save();
+            console.log(`Step 3: Saved ${file} (${name}, ${imagedescription}) to the database.`);
+          } else {
+            console.log(`Warning: No data found for ${file} in the CSV file.`);
+          }
         }
 
         console.log('Database and file uploads initialized successfully');
@@ -180,6 +187,8 @@ async function initializeServer() {
     process.exit(1); // Exit the process if an error occurs during initialization
   }
 }
+
+
 
 
 app.get('/api/getPublications', async (req, res) => {
