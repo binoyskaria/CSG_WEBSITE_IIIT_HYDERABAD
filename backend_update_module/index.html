@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Image Upload, Download, and Publication</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Upload, Download, and Publication</h1>
+
+        <form id="imageUploadForm" class="form">
+            <label for="imageInput">Select Image:</label>
+            <input type="file" id="imageInput" accept="image/*" required>
+            <button type="submit">Upload Image</button>
+        </form>
+
+        <form id="publicationForm" class="form">
+            <label for="titleInput">Title:</label>
+            <input type="text" id="titleInput" required>
+
+            <label for="dateInput">Date:</label>
+            <input type="text" id="dateInput" required>
+
+            <label for="descriptionInput">Description:</label>
+            <textarea id="descriptionInput" required></textarea>
+
+            <button type="submit">Add Publication</button>
+        </form>
+
+        <label for="filenameInput">Enter Filename for Download:</label>
+        <input type="text" id="filenameInput" placeholder="Enter filename with extension">
+
+        <button id="downloadButton">Download Image</button>
+
+        <div id="imageContainer" class="image-container">
+            <img id="downloadedImage" alt="Downloaded Image">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
