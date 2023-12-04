@@ -29,16 +29,26 @@ async function fetchAndCreateStudents() {
   const apiEndpoint = 'http://localhost:3000/api/download/all';
 
   try {
+    console.log('Fetching data from:', apiEndpoint);
+
     const response = await fetch(apiEndpoint);
+    console.log('Received response:', response);
+
     const studentsData = await response.json();
+    console.log('Received students data:', studentsData);
 
     studentsData.forEach((student) => {
+      console.log('Creating student with data:', student);
       createStudent(student.imageName, student.description, `data:image/*;base64,${student.imageData}`);
+      console.log('Student created:', student);
     });
+
+    console.log('All students created successfully.');
   } catch (error) {
-    console.error('Error fetching student data:', error);
+    console.error('Error fetching or creating students:', error);
   }
 }
+
 
 // Call the function to fetch and create students
 fetchAndCreateStudents();

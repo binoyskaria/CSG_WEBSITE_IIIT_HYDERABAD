@@ -166,8 +166,8 @@ async function initializeServer() {
             const { name, imagedescription } = imageRecord;
             const newImage = new Image({
               imageUrl: file,
-              name: name || '',
-              imageDescription: imagedescription || '',
+              imageName: name || '',
+              description: imagedescription || '',
             });
             await newImage.save();
             console.log(`Step 3: Saved ${file} (${name}, ${imagedescription}) to the database.`);
