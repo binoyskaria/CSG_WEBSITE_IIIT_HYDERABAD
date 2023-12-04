@@ -14,7 +14,19 @@ mongoose.connect('mongodb+srv://csgproject:1q2w3e4r@csg.qcbtwhu.mongodb.net/csgd
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
 
+// Event listener for connection error
+mongoose.connection.on('error', (err) => {
+  console.error(`MongoDB connection error: ${err}`);
+});
+
+// Event listener for connection termination
+mongoose.connection.on('disconnected', () => {
+  console.log('MongoDB connection disconnected');
+});
 app.use(cors());
 app.use(express.json());
 
@@ -65,9 +77,7 @@ app.post('/api/upload', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
 
 // ... (existing code)
 
@@ -129,7 +139,16 @@ app.get('/api/download/:filename', async (req, res) => {
 async function initializeServer() {
   try {
     // Clear the "Image" collection
-    await Image.deleteMany({});
+    const imageCount = await Image.countDocuments({ /* your criteria */ });
+
+if (imageCount > 0) {
+  await Image.deleteMany({ /* your criteria */ });
+  console.log(`${imageCount} images deleted.`);
+} else {
+  console.log('No images to delete.');
+}
+
+    // await Image.deleteMany({});
 
     // Read files in the "uploads" folder and save them to the database
     const files = fs.readdirSync('./uploads/');
