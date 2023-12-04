@@ -141,6 +141,7 @@ async function initializeServer() {
   try {
     // Clear the "Image" collection
     const imageCount = await Image.countDocuments({ /* your criteria */ });
+    console.log(`Step 1: Counted ${imageCount} images in the collection.`);
 
     if (imageCount > 0) {
       await Image.deleteMany({ /* your criteria */ });
@@ -157,6 +158,8 @@ async function initializeServer() {
         imageData.push(row);
       })
       .on('end', async () => {
+        console.log('Step 2: Read image data from CSV file.');
+
         // Read files in the "uploads" folder and save them to the database
         const files = fs.readdirSync('./uploads/');
         for (const file of files) {
@@ -166,6 +169,7 @@ async function initializeServer() {
             imageDescription: imageDescription,
           });
           await newImage.save();
+          console.log(`Step 3: Saved ${file} (${imageDescription}) to the database.`);
         }
 
         console.log('Database and file uploads initialized successfully');
