@@ -5,6 +5,7 @@ const cors = require('cors');
 const Image = require('./models/Image');
 const path = require('path');
 const fs = require('fs');
+const Publication = require('./models/Publication');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -133,6 +134,29 @@ async function initializeServer() {
     process.exit(1); // Exit the process if an error occurs during initialization
   }
 }
+
+
+app.get('/api/getPublications', async (req, res) => {
+  try {
+    // Assuming you have a Publication model with appropriate fields
+    const publications = await Publication.find();
+    
+    const publicationEvents = publications.map(publication => ({
+      side: 'right',  // Assuming all publications are on the right side
+      timer: '8000',  // Adjust the timer value as needed
+      title: publication.title,
+      date: publication.date,
+      body: publication.description,
+    }));
+
+    res.json({ events: publicationEvents });
+  } catch (error) {
+    console.error('Error fetching publications:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 // Call the initialization function
 initializeServer();

@@ -210,19 +210,7 @@ const imageUrls = [
     "anish.jpg",
 	"kunal.jpg",
     "geetika.jpg",
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     // Add more image URLs as needed
 ];
 
