@@ -88,38 +88,6 @@ app.post('/api/upload', (req, res) => {
 
 
 
-
-app.get('/api/download/:filename', async (req, res) => {
-  try {
-    const filename = req.params.filename;
-    const image = await Image.findOne({ imageUrl: filename });
-
-    if (!image) {
-      console.log('Image not found in the database');
-      return res.status(404).json({ error: 'Image not found' });
-    }
-
-    console.log('Found image in the database:', image);
-
-    const imagePath = path.join(__dirname, 'uploads', image.imageUrl);
-
-    console.log('Constructed image path:', imagePath);
-
-    res.sendFile(imagePath, (err) => {
-      if (err) {
-        console.error('Error sending file:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        console.log('File sent successfully');
-      }
-    });
-  } catch (error) {
-    console.error('Error downloading image:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-
 //download
 ///////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/api/download/all', async (req, res) => {
