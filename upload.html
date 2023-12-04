@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload, Download, and Publication</title>
+</head>
+<body>
+    <h1>Image Upload, Download, and Publication</h1>
+    
+    <form id="imageUploadForm">
+        <label for="imageInput">Select Image:</label>
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <form id="publicationForm">
+        <label for="titleInput">Title:</label>
+        <input type="text" id="titleInput" required>
+
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" required>
+
+        <label for="descriptionInput">Description:</label>
+        <textarea id="descriptionInput" required></textarea>
+
+        <button type="submit">Add Publication</button>
+    </form>
+
+    <label for="filenameInput">Enter Filename for Download:</label>
+    <input type="text" id="filenameInput" placeholder="Enter filename with extension">
+
+    <button id="downloadButton">Download Image</button>
+
+    <!-- Add an image element to display the downloaded image -->
+    <div id="imageContainer">
+        <img id="downloadedImage" alt="Downloaded Image">
+    </div>
+
+    <script>
+        document.getElementById('imageUploadForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const imageInput = document.getElementById('imageInput');
+            const file = imageInput.files[0];
+
+            if (!file) {
+                alert('Please select an image');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            uploadImage(formData);
+        });
+
+        document.getElementById('publicationForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const titleInput = document.getElementById('titleInput');
+            const dateInput = document.getElementById('dateInput');
+            const descriptionInput = document.getElementById('descriptionInput');
+
+            const publicationData = {
+                title: titleInput.value,
+                date: dateInput.value,
+                description: descriptionInput.value,
+            };
+
+            addPublication(publicationData);
+        });
+
+        function uploadImage(formData) {
+            fetch('http://localhost:3000/api/upload', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Image uploaded successfully:', data);
+
+                const filenameInput = document.getElementById('filenameInput');
+                filenameInput.value = data.imageUrl; // Use the uploaded filename for downloading
+            })
+            .catch(error => {
+                console.error('Error uploading image:', error);
+            });
+        }
+
+        function addPublication(publicationData) {
+            fetch('http://localhost:3000/api/addPublication', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(publicationData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Publication added successfully:', data);
+                // You can update the timeline or perform other actions as needed
+            })
+            .catch(error => {
+                console.error('Error adding publication:', error);
+            });
+        }
+
+        document.getElementById('downloadButton').addEventListener('click', function () {
+            const filenameInput = document.getElementById('filenameInput');
+            const filename = filenameInput.value;
+
+            if (!filename) {
+                alert('Please enter a filename');
+                return;
+            }
+
+            downloadImage(filename);
+        });
+
+        function downloadImage(filename) {
+            fetch(`http://localhost:3000/api/download/${filename}`, {
+                method: 'GET',
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+
+                // Set the src attribute of the image element to the downloaded image URL
+                const downloadedImage = document.getElementById('downloadedImage');
+                downloadedImage.src = url;
+
+                // Display the image container
+                const imageContainer = document.getElementById('imageContainer');
+                imageContainer.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error downloading image:', error);
+            });
+        }
+    </script>
+</body>
+</html>

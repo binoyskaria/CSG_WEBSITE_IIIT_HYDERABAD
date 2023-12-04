@@ -61,13 +61,13 @@ app.post('/api/upload', (req, res) => {
 app.get('/api/images', async (req, res) => {
   try {
     console.log('Fetching images...');
-    
+
     const images = await Image.find();
     console.log('Fetched images from the database:', images);
-    
+
     const imageUrls = images.map(image => image.imageUrl);
     console.log('Extracted image URLs:', imageUrls);
-    
+
     res.json(imageUrls);
     console.log('Sent image URLs as JSON response.');
   } catch (error) {
@@ -140,7 +140,7 @@ app.get('/api/getPublications', async (req, res) => {
   try {
     // Assuming you have a Publication model with appropriate fields
     const publications = await Publication.find();
-    
+
     const publicationEvents = publications.map(publication => ({
       side: 'right',  // Assuming all publications are on the right side
       timer: '8000',  // Adjust the timer value as needed
@@ -155,6 +155,36 @@ app.get('/api/getPublications', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
+
+
+app.post('/api/addPublication', async (req, res) => {
+  try {
+    const { title, date, description } = req.body; // Assuming the request body contains these fields
+
+    if (!title || !date || !description) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const newPublication = new Publication({
+      title,
+      date,
+      description,
+    });
+
+    const savedPublication = await newPublication.save();
+
+    res.json({ message: 'Publication added successfully', publication: savedPublication });
+  } catch (error) {
+    console.error('Error adding publication:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// ... (existing code)
+
 
 
 
