@@ -2193,7 +2193,9 @@ input, select, textarea {
 	}
 
 		header.major:after {
-			background: #e44c65;
+			background: #ece9ea;
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(25px);
 			content: '';
 			display: inline-block;
 			height: 0.2em;
