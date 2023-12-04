@@ -11,7 +11,7 @@ const csv = require('csv-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb+srv://csgproject:1q2w3e4r@csg.qcbtwhu.mongodb.net/csgdatabase', {
+mongoose.connect('mongodb+srv://csgiiit2:iiitcsg@cluster0.rqszplh.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -149,18 +149,28 @@ async function initializeServer() {
       console.log('No images to delete.');
     }
 
-    // await Image.deleteMany({});
+    // Read image data from CSV file
+    const imageData = [];
+    fs.createReadStream('./uploads/imageData.csv')
+      .pipe(csv())
+      .on('data', (row) => {
+        imageData.push(row);
+      })
+      .on('end', async () => {
+        // Read files in the "uploads" folder and save them to the database
+        const files = fs.readdirSync('./uploads/');
+        for (const file of files) {
+          const imageDescription = imageData.find((data) => data.imagename === file)?.imagedescription || '';
+          const newImage = new Image({
+            imageUrl: file,
+            imageDescription: imageDescription,
+          });
+          await newImage.save();
+        }
 
-    // Read files in the "uploads" folder and save them to the database
-    const files = fs.readdirSync('./uploads/');
-    for (const file of files) {
-      const newImage = new Image({
-        imageUrl: file,
+        console.log('Database and file uploads initialized successfully');
       });
-      await newImage.save();
-    }
 
-    console.log('Database and file uploads initialized successfully');
   } catch (error) {
     console.error('Error initializing server:', error);
     process.exit(1); // Exit the process if an error occurs during initialization
