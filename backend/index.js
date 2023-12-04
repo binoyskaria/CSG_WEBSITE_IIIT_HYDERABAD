@@ -31,6 +31,10 @@ mongoose.connection.on('disconnected', () => {
 app.use(cors());
 app.use(express.json());
 
+
+
+//upload
+///////////////////////////////////////////////////////////////////////////////////////////////
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function (req, file, cb) {
@@ -80,25 +84,6 @@ app.post('/api/upload', (req, res) => {
 
 
 
-// ... (existing code)
-
-app.get('/api/images', async (req, res) => {
-  try {
-    console.log('Fetching images...');
-
-    const images = await Image.find();
-    console.log('Fetched images from the database:', images);
-
-    const imageUrls = images.map(image => image.imageUrl);
-    console.log('Extracted image URLs:', imageUrls);
-
-    res.json(imageUrls);
-    console.log('Sent image URLs as JSON response.');
-  } catch (error) {
-    console.error('Error fetching image URLs:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 
 
 
@@ -135,7 +120,8 @@ app.get('/api/download/:filename', async (req, res) => {
 });
 
 
-// Endpoint to serve all uploaded images with corresponding data
+//download
+///////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/api/download/all', async (req, res) => {
   try {
     console.log('Fetching all images from the database...');
@@ -178,6 +164,8 @@ app.get('/api/download/all', async (req, res) => {
 
 
 
+//initialize server
+///////////////////////////////////////////////////////////////////////////////////////////////
 async function initializeServer() {
   try {
     // Clear the "Image" collection
@@ -231,7 +219,8 @@ async function initializeServer() {
 
 
 
-
+//publications
+///////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/api/getPublications', async (req, res) => {
   try {
     console.log('Fetching publications...');
@@ -283,12 +272,6 @@ app.post('/api/addPublication', async (req, res) => {
   }
 });
 
-// ... (existing code)
-
-
-
-
-// Call the initialization function
 initializeServer();
 
 
