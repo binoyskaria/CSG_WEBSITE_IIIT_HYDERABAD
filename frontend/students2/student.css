@@ -1,0 +1,157 @@
+
+#students-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    background-color: #000; 
+  }
+
+   
+  .student {
+    position: relative;
+    overflow: hidden; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); 
+    /* animation: floatAnimation 3s infinite ease-in-out alternate;*/
+    background: linear-gradient(180deg, rgba(169, 169, 169, 0.7) 0%, rgba(169, 169, 169, 0) 100%); 
+    transition: background 0.3s; 
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+  
+  .student:hover {
+    transform: scale(1.05);
+    background: linear-gradient(180deg, rgba(169, 169, 169, 0.9) 0%, rgba(169, 169, 169, 0) 100%); 
+  }
+  
+  
+  .student img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-top: 20px;
+    border: 5px solid white; 
+    transition: transform 0.5s ease, filter 0.5s ease; 
+  }
+  
+  
+  .student:hover img {
+    transform: rotate(360deg);
+    filter: grayscale(100%);
+  }
+  
+  
+  .student-name {
+    font-size: 18px;
+    margin-top: 10px;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+
+  .student-degree {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  
+  @keyframes floatAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-30px);
+    }
+  }
+  
+  
+  .student-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s, left 0.3s; 
+    transform: translateX(-100%); 
+    border-radius: 10px;
+  }
+  
+  .student.active .student-details {
+    opacity: 1;
+    transform: translateX(0); 
+    left: 0;
+  }
+  
+  .student-details h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .student-details p {
+    font-size: 16px;
+    color: #ccc;
+    max-width: 80%;
+    text-align: center;
+  }
+
+    
+.student img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin-top: 20px;
+    border: 2px solid #fff, 2px solid #0e0e0f; 
+    transition: transform 0.5s ease, filter 0.5s ease; 
+  }
+  
+  
+  .student:hover img {
+    transform: rotate(360deg);
+    filter: grayscale(100%);
+  }
+ 
+
+
+#binary-codes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 0; 
+    overflow: hidden; 
+}
+
+
+.binary-code {
+    position: fixed;
+    color: #fff; 
+    user-select: none; 
+    z-index: 0; 
+    animation: floatAnimation 5s infinite linear; 
+}
+
+
+@keyframes floatAnimation {
+    0%, 100% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-50px);
+    }
+}
+
+
