@@ -42,13 +42,22 @@ app.post('/api/upload', (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
+    const { imageName, description } = req.body;
+
     const newImage = new Image({
-      imageUrl: req.file.originalname,
+      imageUrl: req.file.filename,
+      imageName: imageName,
+      description: description,
     });
 
     try {
       const savedImage = await newImage.save();
-      res.json({ message: 'Image uploaded successfully', imageUrl: savedImage.imageUrl });
+      res.json({
+        message: 'Image uploaded successfully',
+        imageUrl: savedImage.imageUrl,
+        imageName: savedImage.imageName,
+        description: savedImage.description,
+      });
     } catch (error) {
       console.error('Error saving image to the database:', error);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -56,6 +65,9 @@ app.post('/api/upload', (req, res) => {
   });
 });
 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 // ... (existing code)
 

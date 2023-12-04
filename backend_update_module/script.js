@@ -1,36 +1,41 @@
-
 document.getElementById('imageUploadForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const imageInput = document.getElementById('imageInput');
+    const titleInput = document.getElementById('titleInput');
+  
+    const descriptionInput = document.getElementById('descriptionInput');
+
     const file = imageInput.files[0];
 
-    if (!file) {
-        alert('Please select an image');
+    if (!file || !titleInput.value || !descriptionInput.value) {
+        alert('Please fill in all fields and select an image');
         return;
     }
 
     const formData = new FormData();
     formData.append('image', file);
+    formData.append('title', titleInput.value);
+    
+    formData.append('description', descriptionInput.value);
 
     uploadImage(formData);
 });
 
-document.getElementById('publicationForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const titleInput = document.getElementById('titleInput');
-    const dateInput = document.getElementById('dateInput');
-    const descriptionInput = document.getElementById('descriptionInput');
+document.getElementById('addPublicationButton').addEventListener('click', function () {
+    const publicationTitleInput = document.getElementById('publicationTitleInput');
+    const publicationDateInput = document.getElementById('publicationDateInput');
+    const publicationDescriptionInput = document.getElementById('publicationDescriptionInput');
 
     const publicationData = {
-        title: titleInput.value,
-        date: dateInput.value,
-        description: descriptionInput.value,
+        title: publicationTitleInput.value,
+        date: publicationDateInput.value,
+        description: publicationDescriptionInput.value,
     };
 
     addPublication(publicationData);
 });
+
 
 function uploadImage(formData) {
     fetch('http://localhost:3000/api/upload', {
