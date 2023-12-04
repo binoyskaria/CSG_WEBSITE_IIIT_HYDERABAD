@@ -139,16 +139,20 @@ async function initializeServer() {
 
 app.get('/api/getPublications', async (req, res) => {
   try {
+    console.log('Fetching publications...');
+    
     // Assuming you have a Publication model with appropriate fields
     const publications = await Publication.find();
+    
+    console.log('Publications fetched:', publications);
 
     const publicationEvents = publications.map(publication => ({
-      side: 'right',  // Assuming all publications are on the right side
-      timer: '8000',  // Adjust the timer value as needed
       title: publication.title,
       date: publication.date,
       body: publication.description,
     }));
+
+    console.log('Formatted publication events:', publicationEvents);
 
     res.json({ events: publicationEvents });
   } catch (error) {

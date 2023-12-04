@@ -69,3 +69,48 @@
 		scrolling = false;
 	};
 })();
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+	console.log('DOM content loaded. Fetching data from the server...');
+  
+	// Fetch data from the server
+	fetch('http://localhost:3000/api/getPublications')
+	  .then(response => {
+		console.log('Response received:', response);
+		return response.json();
+	  })
+	  .then(data => {
+		console.log('Data received from the server:', data);
+  
+		// Get the timeline container
+		const timelineContainer = document.getElementById('timeline-container');
+  
+		// Iterate through each publication event and populate the HTML
+		data.events.forEach(event => {
+		  const timelineBlock = document.createElement('div');
+		  timelineBlock.className = 'cd-timeline__block';
+  
+		  timelineBlock.innerHTML = `
+			<div class="cd-timeline__img cd-timeline__img--location">
+			  <img src="assets/img/cd-icon-location.svg" alt="Location">
+			</div>
+			<div class="cd-timeline__content text-component">
+			  <h2 id="title">${event.title}</h2>
+			  <p class="color-contrast-medium">${event.body}</p>
+			  <div class="flex justify-between items-center">
+				<span class="cd-timeline__date">${event.date}</span>
+			  </div>
+			</div>
+		  `;
+  
+		  // Append the populated block to the timeline container
+		  timelineContainer.appendChild(timelineBlock);
+		});
+	  })
+	  .catch(error => console.error('Error fetching publications:', error));
+  });
+  
+  
