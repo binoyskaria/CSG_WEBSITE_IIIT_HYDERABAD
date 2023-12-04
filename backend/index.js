@@ -10,7 +10,7 @@ const Publication = require('./models/Publication');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost:27017/images', {
+mongoose.connect('mongodb+srv://csgproject:1q2w3e4r@csg.qcbtwhu.mongodb.net/csgdatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -65,8 +65,8 @@ app.post('/api/upload', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 // ... (existing code)
@@ -90,7 +90,6 @@ app.get('/api/images', async (req, res) => {
 });
 
 
-// ... (existing code)
 
 
 
@@ -208,6 +207,12 @@ app.post('/api/addPublication', async (req, res) => {
 // Call the initialization function
 initializeServer();
 
+
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+initializeServer();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
