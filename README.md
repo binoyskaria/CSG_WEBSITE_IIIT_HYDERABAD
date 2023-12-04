@@ -13,7 +13,7 @@ STEPS TO RUN <br>
        (eg: binoy-skaria@ubuntu:~/Downloads/5_CSG_LAB-main/backend$ node index.js) <br>
 
 3: ACCESS FRONTEND <br>
-    a: open ./frontend/home/landingpage.html in browser <br>
+    a: open index.html in browser <br>
 
 
 NOTES <br>
