@@ -27,28 +27,6 @@ router.get('/getPublications', async (req, res) => {
   }
 });
 
-// Route to add a new publication
-router.post('/addPublication', async (req, res) => {
-  try {
-    const { title, date, description } = req.body;
 
-    if (!title || !date || !description) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    const newPublication = new Publication({
-      title,
-      date,
-      description,
-    });
-
-    const savedPublication = await newPublication.save();
-
-    res.json({ message: 'Publication added successfully', publication: savedPublication });
-  } catch (error) {
-    console.error('Error adding publication:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 
 module.exports = router;
