@@ -98,7 +98,7 @@ const handleAddPublication = async (req, res) => {
     const savedPublication = await newPublication.save();
 
     // Append new publication data to publication.csv
-    const publicationCsvPath = './uploads/publication.csv';
+    const publicationCsvPath = './publication.csv';
     const publicationCsvRow = `${savedPublication.title},${savedPublication.date},${savedPublication.description}\n`;
 
     await fs.appendFile(publicationCsvPath, publicationCsvRow);
