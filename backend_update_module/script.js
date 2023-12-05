@@ -48,9 +48,11 @@ function uploadImage(formData) {
 
         const filenameInput = document.getElementById('filenameInput');
         filenameInput.value = data.imageUrl; // Use the uploaded filename for downloading
+        alert('Image uploaded successfully!');
     })
     .catch(error => {
         console.error('Error uploading image:', error);
+        alert('Failed to upload image. Please try again.');
     });
 }
 
@@ -66,9 +68,11 @@ function addPublication(publicationData) {
     .then(data => {
         console.log('Publication added successfully:', data);
         // You can update the timeline or perform other actions as needed
+        alert('Publication added successfully!');
     })
     .catch(error => {
         console.error('Error adding publication:', error);
+        alert('Failed to add publication. Please try again.');
     });
 }
 
@@ -99,8 +103,10 @@ function downloadImage(filename) {
         // Display the image container
         const imageContainer = document.getElementById('imageContainer');
         imageContainer.style.display = 'block';
+        alert('Image downloaded successfully!');
     })
     .catch(error => {
         console.error('Error downloading image:', error);
+        alert('Failed to download image. Please try again.');
     });
 }

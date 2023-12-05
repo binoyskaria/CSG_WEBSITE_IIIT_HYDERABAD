@@ -134,7 +134,7 @@ app.get('/api/download/all', async (req, res) => {
 
 //initialize server
 ///////////////////////////////////////////////////////////////////////////////////////////////
-async function initializeServer() {
+async function initializeImageServer() {
   try {
     // Clear the "Image" collection
     const imageCount = await Image.countDocuments({ /* your criteria */ });
@@ -185,6 +185,45 @@ async function initializeServer() {
   }
 }
 
+async function initializePublicationServer() {
+  try {
+    // Clear the "Publication" collection
+    const publicationCount = await Publication.countDocuments({ /* your criteria */ });
+    console.log(`Step 1: Counted ${publicationCount} publications in the collection.`);
+
+    if (publicationCount > 0) {
+      await Publication.deleteMany({ /* your criteria */ });
+      console.log(`${publicationCount} publications deleted.`);
+    } else {
+      console.log('No publications to delete.');
+    }
+
+    // Read publication data from CSV file
+    const publicationData = [];
+    fs.createReadStream('./publication.csv')
+      .pipe(csv({ separator: '#' }))
+      .on('data', (row) => {
+        const [title, date, description] = Object.values(row);
+        publicationData.push({ title, date, description });
+      })
+      .on('end', async () => {
+        console.log('Step 2: Read publication data from CSV file.');
+
+        // Save publications to the database
+        for (const publication of publicationData) {
+          const newPublication = new Publication(publication);
+          await newPublication.save();
+          console.log(`Step 3: Saved ${publication.title} to the database.`);
+        }
+
+        console.log('Database and publication data initialized successfully');
+      });
+
+  } catch (error) {
+    console.error('Error initializing server:', error);
+    process.exit(1); // Exit the process if an error occurs during initialization
+  }
+}
 
 
 //publications
@@ -240,7 +279,8 @@ app.post('/api/addPublication', async (req, res) => {
   }
 });
 
-initializeServer();
+initializeImageServer();
+initializePublicationServer();
 
 
 
