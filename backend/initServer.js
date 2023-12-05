@@ -16,7 +16,7 @@ async function initializeImageServer() {
     }
 
     const imageData = [];
-    fs.createReadStream('./uploads/imageData.csv')
+    fs.createReadStream('./imageData.csv')
       .pipe(csv())
       .on('data', (row) => {
         imageData.push(row);
