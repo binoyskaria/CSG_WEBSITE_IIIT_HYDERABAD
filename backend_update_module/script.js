@@ -38,7 +38,7 @@ document.getElementById('addPublicationButton').addEventListener('click', functi
 
 
 function uploadImage(formData) {
-    fetch('http://localhost:3000/api/upload', {
+    fetch('http://localhost:3000/api/admin/upload', {
         method: 'POST',
         body: formData,
     })
@@ -57,7 +57,7 @@ function uploadImage(formData) {
 }
 
 function addPublication(publicationData) {
-    fetch('http://localhost:3000/api/addPublication', {
+    fetch('http://localhost:3000/api/admin/addPublication', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
