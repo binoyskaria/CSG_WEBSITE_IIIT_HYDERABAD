@@ -6,53 +6,6 @@ const Image = require('../models/Image');
 
 const router = express.Router();
 
-// Multer configuration for file upload
-const storage = multer.diskStorage({
-  destination: './uploads/',
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10000000 }, // 10MB limit
-}).single('image');
-
-// Route to handle image upload
-router.post('/upload', (req, res) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      console.error('Error uploading image:', err);
-      return res.status(500).json({ error: 'Error uploading image' });
-    }
-
-    if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-
-    const { imageName, description } = req.body;
-
-    const newImage = new Image({
-      imageUrl: req.file.filename,
-      imageName: imageName,
-      description: description,
-    });
-
-    try {
-      const savedImage = await newImage.save();
-      res.json({
-        message: 'Image uploaded successfully',
-        imageUrl: savedImage.imageUrl,
-        imageName: savedImage.imageName,
-        description: savedImage.description,
-      });
-    } catch (error) {
-      console.error('Error saving image to the database:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
-});
 
 // Route to handle downloading all images
 router.get('/download/all', async (req, res) => {

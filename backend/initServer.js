@@ -16,7 +16,7 @@ async function initializeImageServer() {
     }
 
     const imageData = [];
-    fs.createReadStream('./imageData.csv')
+    fs.createReadStream('./data/imageData.csv')
       .pipe(csv())
       .on('data', (row) => {
         imageData.push(row);
@@ -64,7 +64,7 @@ async function initializePublicationServer() {
     }
 
     const publicationData = [];
-    fs.createReadStream('./publication.csv')
+    fs.createReadStream('./data/publication.csv')
       .pipe(csv({ separator: '#' }))
       .on('data', (row) => {
         const [title, date, description] = Object.values(row);
