@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	console.log('DOM content loaded. Fetching data from the server...');
   
 	// Fetch data from the server
-	fetch('http://localhost:3000/api/getPublications')
+	fetch('http://localhost:3000/api/publications/getPublications')
 	  .then(response => {
 		console.log('Response received:', response);
 		return response.json();

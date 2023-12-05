@@ -26,7 +26,7 @@ function createStudent(name, degree, imgSrc) {
 
 // Function to fetch student data from API and create student elements
 async function fetchAndCreateStudents() {
-  const apiEndpoint = 'http://localhost:3000/api/download/all';
+  const apiEndpoint = 'http://localhost:3000/api/images/download/all';
 
   try {
     console.log('Fetching data from:', apiEndpoint);
