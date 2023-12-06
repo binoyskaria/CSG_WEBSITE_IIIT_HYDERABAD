@@ -143,3 +143,51 @@
 			});
 
 })(jQuery);
+
+
+document.addEventListener('DOMContentLoaded', function () {
+	// Function to make AJAX request and populate content
+	async function populateContent() {
+	  try {
+		// Make an AJAX request to your getProjects API
+		const response = await fetch('http://localhost:3000/api/projects/getProjects'); // Update the URL as needed
+		const data = await response.json();
+  
+		// Assuming the response has a 'projects' property containing an array of projects
+		const projects = data.projects;
+  
+		// Reference to the wrapper element
+		const wrapper = document.getElementById('wrapper');
+  
+		// Iterate through projects and dynamically create HTML content
+		projects.forEach((project) => {
+		  const section = document.createElement('section');
+		  section.classList.add('wrapper', 'alt', 'spotlight', 'style2');
+  
+		  section.innerHTML = `
+			<div class="inner">
+			  <div class="content">
+				<h2 class="major">${project.title}</h2>
+				<p>${project.faculty}</p>
+				<p>${project.companyfund}</p>
+				<p>${project.date}</p>
+				<a href="#" class="special" onclick="toggleContent(event, 'section-${project.title.replace(/\s+/g, '-')}')">Summary</a>
+				<div class="additional-content" id="section-${project.title.replace(/\s+/g, '-').toLowerCase()}-content" style="display: none;">
+				  <p>${project.summary}</p>
+				</div>
+			  </div>
+			</div>
+		  `;
+  
+		  wrapper.appendChild(section);
+		});
+	  } catch (error) {
+		console.error('Error fetching projects:', error);
+		// Handle errors as needed
+	  }
+	}
+  
+	// Call the function to populate content when the DOM is loaded
+	populateContent();
+  });
+  
