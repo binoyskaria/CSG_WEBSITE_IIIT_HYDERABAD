@@ -1,7 +1,9 @@
 const Image = require('../models/Image');
 const Publication = require('../models/Publication');
+const Project = require('../models/Project');
 const fs = require('fs').promises;
 const multer = require('multer');
+
 
 // Function to handle image upload
 const handleImageUpload = async (req, res) => {
@@ -48,7 +50,7 @@ const handleImageUpload = async (req, res) => {
       const savedImage = await newImage.save();
 
       // Append new image data to imageData.csv
-      const imageDataCsvPath = './imageData.csv';
+      const imageDataCsvPath = './data/imageData.csv';
       const imageDataCsvRow = `${savedImage.imageUrl},${savedImage.title},${savedImage.description}\n`;
 
       await fs.appendFile(imageDataCsvPath, imageDataCsvRow);
@@ -98,7 +100,7 @@ const handleAddPublication = async (req, res) => {
     const savedPublication = await newPublication.save();
 
     // Append new publication data to publication.csv
-    const publicationCsvPath = './publication.csv';
+    const publicationCsvPath = './data/publication.csv';
     const publicationCsvRow = `${savedPublication.title},${savedPublication.date},${savedPublication.description}\n`;
 
     await fs.appendFile(publicationCsvPath, publicationCsvRow);
@@ -116,4 +118,56 @@ const handleAddPublication = async (req, res) => {
   }
 };
 
-module.exports = { handleImageUpload, handleAddPublication };
+
+
+// Function to handle adding a new project
+const handleAddProject = async (req, res) => {
+  try {
+    const { title, faculty, companyfund, date, summary } = req.body;
+
+    console.log('Project details:', {
+      title: title,
+      faculty: faculty,
+      companyfund: companyfund,
+      date: date,
+      summary: summary,
+    });
+
+    if (!title || !faculty || !companyfund || !date || !summary) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const newProject = new Project({
+      title,
+      faculty,
+      companyfund,
+      date,
+      summary,
+    });
+
+    console.log('New Project Object:', newProject);
+
+    const savedProject = await newProject.save();
+
+    // Append new project data to projects.csv
+    const projectsCsvPath = './data/projectData.csv';
+    const projectCsvRow = `${savedProject.title},${savedProject.faculty},${savedProject.companyfund},${savedProject.date},${savedProject.summary}\n`;
+
+    await fs.appendFile(projectsCsvPath, projectCsvRow);
+
+    console.log('Project data appended to CSV:', {
+      title: savedProject.title,
+      faculty: savedProject.faculty,
+      companyfund: savedProject.companyfund,
+      date: savedProject.date,
+      summary: savedProject.summary,
+    });
+
+    res.json({ message: 'Project added successfully', project: savedProject });
+  } catch (error) {
+    console.error('Error adding project:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+module.exports = { handleImageUpload, handleAddPublication, handleAddProject };

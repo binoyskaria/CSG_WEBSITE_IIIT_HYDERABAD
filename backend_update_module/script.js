@@ -20,7 +20,7 @@ document.getElementById('imageUploadForm').addEventListener('submit', async func
 
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('title', titleInput.value); 
+    formData.append('title', titleInput.value);
     formData.append('description', descriptionInput.value);
 
 
@@ -126,3 +126,39 @@ function downloadImage(filename) {
             alert('Failed to download image. Please try again.');
         });
 }
+
+
+function addProject(projectData) {
+    console.log('Adding project...');
+
+    fetch('http://localhost:3000/api/admin/addProject', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Project added successfully:', data);
+            // You can update the UI or perform other actions as needed
+            alert('Project added successfully!');
+        })
+        .catch(error => {
+            console.error('Error adding project:', error);
+            alert('Failed to add project. Please try again.');
+        });
+}
+
+// Event listener for the "Add Project" button
+document.getElementById('addProjectButton').addEventListener('click', function () {
+    const projectData = {
+        title: document.getElementById('projectTitleInput').value,
+        faculty: document.getElementById('projectFacultyInput').value,
+        companyfund: document.getElementById('projectCompanyFundInput').value,
+        date: document.getElementById('projectDateInput').value,
+        summary: document.getElementById('projectSummaryInput').value,
+    };
+
+    addProject(projectData);
+});

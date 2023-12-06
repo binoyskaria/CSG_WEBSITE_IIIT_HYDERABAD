@@ -1,7 +1,49 @@
+// initServer.js
 const fs = require('fs');
 const csv = require('csv-parser');
 const Image = require('./models/Image');
 const Publication = require('./models/Publication');
+const Project = require('./models/Project'); // Add this line
+
+async function initializeProjectServer() {
+  try {
+    const projectCount = await Project.countDocuments({});
+    console.log(`Step 1: Counted ${projectCount} projects in the collection.`);
+
+    if (projectCount > 0) {
+      await Project.deleteMany({});
+      console.log(`${projectCount} projects deleted.`);
+    } else {
+      console.log('No projects to delete.');
+    }
+
+    const projectData = [];
+    fs.createReadStream('./data/projectData.csv')
+      .pipe(csv({ separator: '#' }))
+      .on('data', (row) => {
+        const [title, faculty, companyfund, date, summary] = Object.values(row);
+        projectData.push({ title, faculty, companyfund, date, summary });
+      })
+      .on('end', async () => {
+        console.log('Step 2: Read project data from CSV file.');
+
+        for (const project of projectData) {
+          const newProject = new Project(project);
+          await newProject.save();
+          console.log(`Step 3: Saved ${project.title} to the database.`);
+        }
+
+        console.log('Database and project data initialized successfully');
+      });
+
+  } catch (error) {
+    console.error('Error initializing project server:', error);
+    process.exit(1);
+  }
+}
+
+
+
 
 async function initializeImageServer() {
   try {
@@ -88,4 +130,6 @@ async function initializePublicationServer() {
   }
 }
 
-module.exports = { initializeImageServer, initializePublicationServer };
+// ... (Your existing code for initializeImageServer and initializePublicationServer)
+
+module.exports = { initializeImageServer, initializePublicationServer, initializeProjectServer };
