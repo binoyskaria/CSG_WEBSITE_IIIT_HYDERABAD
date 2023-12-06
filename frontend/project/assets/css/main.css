@@ -4301,3 +4301,16 @@ input, select, textarea {
 		}
 
 	}
+
+
+	/* Add these styles to your CSS file or style tag */
+/* Add these styles to your CSS file or style tag */
+.additional-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.additional-content.show {
+    max-height: 1000px; /* Set the max height as needed */
+}
