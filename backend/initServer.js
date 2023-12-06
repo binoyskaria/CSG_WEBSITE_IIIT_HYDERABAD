@@ -59,7 +59,7 @@ async function initializeImageServer() {
 
     const imageData = [];
     fs.createReadStream('./data/imageData.csv')
-      .pipe(csv())
+    .pipe(csv({ separator: '#' }))
       .on('data', (row) => {
         imageData.push(row);
       })

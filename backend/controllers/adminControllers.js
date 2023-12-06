@@ -51,7 +51,7 @@ const handleImageUpload = async (req, res) => {
 
       // Append new image data to imageData.csv
       const imageDataCsvPath = './data/imageData.csv';
-      const imageDataCsvRow = `${savedImage.imageUrl},${savedImage.title},${savedImage.description}\n`;
+      const imageDataCsvRow = `${savedImage.imageUrl}#${savedImage.title}#${savedImage.description}\n`;
 
       await fs.appendFile(imageDataCsvPath, imageDataCsvRow);
 
@@ -101,7 +101,7 @@ const handleAddPublication = async (req, res) => {
 
     // Append new publication data to publication.csv
     const publicationCsvPath = './data/publication.csv';
-    const publicationCsvRow = `${savedPublication.title},${savedPublication.date},${savedPublication.description}\n`;
+    const publicationCsvRow = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}\n`;
 
     await fs.appendFile(publicationCsvPath, publicationCsvRow);
 
@@ -151,7 +151,7 @@ const handleAddProject = async (req, res) => {
 
     // Append new project data to projects.csv
     const projectsCsvPath = './data/projectData.csv';
-    const projectCsvRow = `${savedProject.title},${savedProject.faculty},${savedProject.companyfund},${savedProject.date},${savedProject.summary}\n`;
+    const projectCsvRow = `${savedProject.title}#${savedProject.faculty}#${savedProject.companyfund}#${savedProject.date}#${savedProject.summary}\n`;
 
     await fs.appendFile(projectsCsvPath, projectCsvRow);
 
