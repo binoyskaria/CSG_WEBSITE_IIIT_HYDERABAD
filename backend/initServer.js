@@ -60,8 +60,8 @@ async function initializeFocusSevenPublicationServer() {
     fs.createReadStream('./data/focusSevenPublication.csv')
       .pipe(csv({ separator: '#' }))
       .on('data', (row) => {
-        const [title, author, link] = Object.values(row);
-        publicationData.push({ title, author, link });
+        const [index,title, author, link] = Object.values(row);
+        publicationData.push({ index,title, author, link });
       })
       .on('end', async () => {
         console.log('Step 2: Read publication data from CSV file.');

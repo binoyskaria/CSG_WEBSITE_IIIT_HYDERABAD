@@ -1,3 +1,5 @@
+//addStudent
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 document.getElementById('imageUploadForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -29,21 +31,7 @@ document.getElementById('imageUploadForm').addEventListener('submit', async func
     uploadImage(formData);
 });
 
-document.getElementById('addPublicationButton').addEventListener('click', function () {
-    const publicationTitleInput = document.getElementById('publicationTitleInput');
-    const publicationDateInput = document.getElementById('publicationDateInput');
-    const publicationDescriptionInput = document.getElementById('publicationDescriptionInput');
 
-    const publicationData = {
-        title: publicationTitleInput.value,
-        date: publicationDateInput.value,
-        description: publicationDescriptionInput.value,
-    };
-
-    console.log('Publication data collected:', publicationData);
-
-    addPublication(publicationData);
-});
 
 function uploadImage(formData) {
     console.log('Uploading image...');
@@ -66,6 +54,23 @@ function uploadImage(formData) {
         });
 }
 
+//addPublication
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+document.getElementById('addPublicationButton').addEventListener('click', function () {
+    const publicationTitleInput = document.getElementById('publicationTitleInput');
+    const publicationDateInput = document.getElementById('publicationDateInput');
+    const publicationDescriptionInput = document.getElementById('publicationDescriptionInput');
+
+    const publicationData = {
+        title: publicationTitleInput.value,
+        date: publicationDateInput.value,
+        description: publicationDescriptionInput.value,
+    };
+
+    console.log('Publication data collected:', publicationData);
+
+    addPublication(publicationData);
+});
 function addPublication(publicationData) {
     console.log('Adding publication...');
 
@@ -90,7 +95,7 @@ function addPublication(publicationData) {
 
 
 
-//addFocusSevenPublication
+//addProject
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function addProject(projectData) {
     console.log('Adding project...');
@@ -127,7 +132,7 @@ document.getElementById('addProjectButton').addEventListener('click', function (
     addProject(projectData);
 });
 
-//facultyImageUploadForm
+//addFaculty
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 document.getElementById('facultyImageUploadForm').addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -193,8 +198,12 @@ function addFocusSevenPublication(publicationData) {
         },
         body: JSON.stringify(publicationData),
     })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response from server:', response);
+            return response.json();
+        })
         .then(data => {
+            console.log('Data received from server:', data);
             console.log('FocusSevenPublication added/updated successfully:', data);
             // You can update the UI or perform other actions as needed
             alert('FocusSevenPublication added/updated successfully!');
@@ -205,14 +214,17 @@ function addFocusSevenPublication(publicationData) {
         });
 }
 
-
 document.getElementById('addFocusSevenPublicationButton').addEventListener('click', function () {
+    console.log('Add FocusSevenPublication button clicked');
+
     const publicationData = {
-        title: document.getElementById('publicationTitleInput').value,
+        title: document.getElementById('FocuspublicationTitleInput').value,
         author: document.getElementById('publicationAuthorInput').value,
         link: document.getElementById('publicationLinkInput').value,
         index: document.getElementById('publicationIndexInput').value,
     };
+
+    console.log('Publication data:', publicationData);
 
     addFocusSevenPublication(publicationData);
 });

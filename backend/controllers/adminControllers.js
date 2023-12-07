@@ -149,55 +149,49 @@ const handleFacultyUpload = async (req, res) => {
 
 
 
-// Function to handle adding or updating a publication
 const handleAddFocusSevenPublication = async (req, res) => {
   try {
     const { title, author, link, index } = req.body;
 
-    console.log('FocusSevenPublication details:', {
-      title: title,
-      author: author,
-      link: link,
-      index: index,
-    });
+    console.log('FocusSevenPublication details:', { title, author, link, index });
 
     if (!title || !author || !link || !index) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Check if the publication with the given index exists in MongoDB
-    let existingPublication = await FocusSevenPublication.findOne({ index: index });
+    // Find the publication with the given index in MongoDB
+    let existingPublication = await FocusSevenPublication.findOne({ index });
 
-    if (existingPublication) {
-      // Update the existing publication in MongoDB
-      existingPublication.title = title;
-      existingPublication.author = author;
-      existingPublication.link = link;
-    } else {
-      // Create a new publication in MongoDB if it doesn't exist
-      existingPublication = new FocusSevenPublication({
-        title,
-        author,
-        link,
-        index,
-      });
+    if (!existingPublication) {
+      return res.status(400).json({ error: 'Publication not found for the given index' });
     }
+
+    // Update the existing publication in MongoDB
+    existingPublication.title = title;
+    existingPublication.author = author;
+    existingPublication.link = link;
 
     // Save/update the publication in MongoDB
     const savedPublication = await existingPublication.save();
 
+    console.log('FocusSevenPublication updated:', {
+      title: savedPublication.title,
+      author: savedPublication.author,
+      link: savedPublication.link,
+    });
+
     // Update the CSV file
     const publicationCsvPath = './data/focusSevenPublication.csv';
-    const csvData = await fs.promises.readFile(publicationCsvPath, 'utf-8');
+    const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
     const rows = csvData.split('\n');
 
     // Update the CSV row based on the provided index
     if (index <= rows.length) {
-      rows[index - 1] = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}`;
-      await fs.promises.writeFile(publicationCsvPath, rows.join('\n'));
+      rows[index] = `${savedPublication.index}#${savedPublication.title}#${savedPublication.author}#${savedPublication.link}`;
+      await fs.writeFile(publicationCsvPath, rows.join('\n'));
     } else {
       // Handle the case where the index is greater than the number of rows in CSV
-      return res.status(400).json({ error: 'Invalid index' });
+      return res.status(400).json({ error: 'Invalid index for updating CSV' });
     }
 
     console.log('FocusSevenPublication data updated in CSV:', {
@@ -208,7 +202,7 @@ const handleAddFocusSevenPublication = async (req, res) => {
 
     res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
   } catch (error) {
-    console.error('Error adding/updating FocusSevenPublication:', error);
+    console.error('Error updating FocusSevenPublication:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };

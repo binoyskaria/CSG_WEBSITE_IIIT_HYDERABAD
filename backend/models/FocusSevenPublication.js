@@ -13,6 +13,10 @@ const focusSevenPublicationSchema = new mongoose.Schema({
     type: String,
    
   },
+  index: {
+    type: String,
+   
+  },
 });
 
 module.exports = mongoose.model('FocusSevenPublication', focusSevenPublicationSchema);
