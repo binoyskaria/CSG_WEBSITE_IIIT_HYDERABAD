@@ -21,7 +21,7 @@ router.get('/download/all', async (req, res) => {
 
     const imageResponses = await Promise.all(
       images.map(async (image) => {
-        const imagePath = path.join(__dirname, '../uploads', image.imageUrl);
+        const imagePath = path.join(__dirname, '../uploads/students/', image.imageUrl);
 
         console.log(`Reading image data for ${image.imageUrl}...`);
 

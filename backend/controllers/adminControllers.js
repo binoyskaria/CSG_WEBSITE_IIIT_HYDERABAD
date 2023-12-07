@@ -10,7 +10,7 @@ const handleImageUpload = async (req, res) => {
   try {
     // Multer configuration for file upload
     const storage = multer.diskStorage({
-      destination: './uploads/',
+      destination: './uploads/students/',
       filename: function (req, file, cb) {
         cb(null, file.originalname);
       },
