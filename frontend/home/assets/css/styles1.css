@@ -88,24 +88,23 @@
   margin-bottom: 20px; 
 } */
 
-/* Styling for images */
-.wrapper.style1.special img {
-  height: auto; /* Maintain aspect ratio */
-  max-width: 370px; /* Maximum width for the images */
-  margin: 0 auto; /* Center images */
-  border-radius: 30px; /* Rounded corners for images */
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth transition for hover effect and filter */
-  /* box-shadow: 0 0 8px 0 rgba(235, 91, 91, 0.5); */
-  /* border: 2px solid #fdfdfd; */
+
+/* .wrapper.style1.special img {
+  height: auto; 
+  max-width: 370px; 
+  margin: 0 auto;
+  border-radius: 30px; 
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+
   border: 4px double #ffffff;
 }
 
 .wrapper.style1.special img:hover {
-  transform: scale(1.08) rotate(5deg); /* Slightly increase the size and rotate */
-  box-shadow: 0 4px 8px rgba(145, 142, 142, 0.8); /* Add shadow for depth */
-  filter: brightness(80%); /* Increase brightness and contrast */
-  /* box-shadow: 0 0 8px 0 rgba(138, 4, 4, 0.5); */
-}
+  transform: scale(1.08) rotate(5deg);
+  box-shadow: 0 4px 8px rgba(145, 142, 142, 0.8);
+  filter: brightness(80%); 
+  
+} */
 
 
 /* Styling for faculty names */

@@ -1,5 +1,6 @@
 @import url("fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,100italic,300italic");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
 
 
 /*
@@ -3615,95 +3616,7 @@ input, select, textarea {
 		background-attachment: scroll;
 	}
 
-/* Footer */
 
-	/* #footer {
-		background: #272833;
-		padding: 6em 0;
-		text-align: center;
-		
-	}
-	.footer-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	
-	#footer-logo {
-		margin-bottom: 1em;
-		margin-left: auto;
-	}
-
-	.center-content {
-		flex-grow: 1;
-		text-align: center;
-	}
-	
-	#footer img {
-		width: 250px; 
-		filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg);
-
-	}
-		#footer .icons .icon.alt {
-			text-decoration: none;
-		}
-
-			#footer .icons .icon.alt:before {
-				-moz-osx-font-smoothing: grayscale;
-				-webkit-font-smoothing: antialiased;
-				display: inline-block;
-				font-style: normal;
-				font-variant: normal;
-				text-rendering: auto;
-				line-height: 1;
-				text-transform: none !important;
-				font-family: 'Font Awesome 5 Free';
-				font-weight: 400;
-				
-			}
-			#footer .icons, #footer .copyright {
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-
-			#footer .icons .icon.alt:before {
-				color: #272833 !important;
-				text-shadow: 1px 0 0 rgba(255, 255, 255, 0.5), -1px 0 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(255, 255, 255, 0.5), 0 -1px 0 rgba(255, 255, 255, 0.5);
-			}
-
-		#footer .copyright {
-			color: rgba(255, 255, 255, 0.5);
-			font-size: 0.8em;
-			line-height: 1em;
-			margin: 2em 0 0 0;
-			padding: 0;
-			text-align: center;
-			display: flex;
-			justify-content: center;
-		}
-
-			#footer .copyright li {
-				border-left: solid 1px rgba(255, 255, 255, 0.3);
-				display: inline-block;
-				list-style: none;
-				margin-left: 1.5em;
-				padding-left: 1.5em;
-			}
-
-				#footer .copyright li:first-child {
-					border-left: 0;
-					margin-left: 0;
-					padding-left: 0;
-				}
-
-				#footer .copyright li a {
-					color: inherit;
-				} */
 
 				#footer {
 					background: #272833;
@@ -4302,15 +4215,8 @@ input, select, textarea {
 	}
 
 
-	/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"); */
 
 
-	  
-
-/*  www.bytewebster.com*/
-/*  www.bytewebster.com*/
-/*  www.bytewebster.com*/
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
 :root {
   --card-width: 200px;
   --card-height: 300px;
@@ -4323,7 +4229,7 @@ input, select, textarea {
 
 
 .app {
-  height: 100vh;
+  height: 50vh;
   position: relative;
   width: 100%;
  
@@ -4340,45 +4246,6 @@ input, select, textarea {
   pointer-events: none;
   user-select: none;
   overflow: hidden;
-}
-.app__bg::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 1;
-  opacity: 0.8;
-}
-.app__bg__image {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) translateX(var(--image-translate-offset, 0));
-  width: 180%;
-  height: 180%;
-  transition: transform 1000ms ease, opacity 1000ms ease;
-  overflow: hidden;
-}
-.app__bg__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.app__bg__image.current--image {
-  opacity: 1;
-  --image-translate-offset: 0;
-}
-.app__bg__image.previous--image, .app__bg__image.next--image {
-  opacity: 0;
-}
-.app__bg__image.previous--image {
-  --image-translate-offset: -25%;
-}
-.app__bg__image.next--image {
-  --image-translate-offset: 25%;
 }
 
 .cardList {
@@ -4507,40 +4374,18 @@ input, select, textarea {
   color: #fff;
   width: fit-content;
 }
-.info .name,
-.info .location {
-  text-transform: uppercase;
+.info .name{
+	font-size: xx-large;
+	text-transform: uppercase;
 }
 .info .location {
-  font-weight: 800;
+	font-size: medium;
+	text-transform: uppercase;
 }
-.info .location {
-  --mg-left: 40px;
-  --text-size-offset: 0.12;
-  font-weight: 600;
-  margin-left: var(--mg-left);
-  margin-bottom: calc(var(--mg-left) / 2);
-  padding-bottom: 0.8rem;
-}
-.info .location::before, .info .location::after {
-  content: "";
-  position: absolute;
-  background: #fff;
-  left: 0%;
-  transform: translate(calc(-1 * var(--mg-left)), -50%);
-}
-.info .location::before {
-  top: 50%;
-  width: 20px;
-  height: 5px;
-}
-.info .location::after {
-  bottom: 0;
-  width: 60px;
-  height: 2px;
-}
+
 .info .description {
-  --text-size-offset: 0.065;
+	
+  --text-size-offset: 0.08;
   font-weight: 500;
 }
 .info.current--info {
@@ -4593,21 +4438,4 @@ input, select, textarea {
     --card-width: 250px;
     --card-height: 400px;
   }
-}
-.support {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  padding: 10px;
-  display: flex;
-}
-.support a {
-  margin: 0 10px;
-  color: #fff;
-  font-size: 1.8rem;
-  backface-visibility: hidden;
-  transition: all 150ms ease;
-}
-.support a:hover {
-  transform: scale(1.1);
 }
