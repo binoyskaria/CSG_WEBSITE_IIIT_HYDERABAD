@@ -4,6 +4,7 @@ const csv = require('csv-parser');
 const Image = require('./models/Image');
 const FacultyImage = require('./models/FacultyImage');
 const Publication = require('./models/Publication');
+const FocusSevenPublication = require('./models/FocusSevenPublication');
 const Project = require('./models/Project'); // Add this line
 
 async function initializeProjectServer() {
@@ -43,6 +44,42 @@ async function initializeProjectServer() {
   }
 }
 
+async function initializeFocusSevenPublicationServer() {
+  try {
+    const publicationCount = await FocusSevenPublication.countDocuments({});
+    console.log(`Step 1: Counted ${publicationCount} publications in the collection.`);
+
+    if (publicationCount > 0) {
+      await FocusSevenPublication.deleteMany({});
+      console.log(`${publicationCount} publications deleted.`);
+    } else {
+      console.log('No publications to delete.');
+    }
+
+    const publicationData = [];
+    fs.createReadStream('./data/focusSevenPublication.csv')
+      .pipe(csv({ separator: '#' }))
+      .on('data', (row) => {
+        const [title, author, link] = Object.values(row);
+        publicationData.push({ title, author, link });
+      })
+      .on('end', async () => {
+        console.log('Step 2: Read publication data from CSV file.');
+
+        for (const publication of publicationData) {
+          const newPublication = new FocusSevenPublication(publication);
+          await newPublication.save();
+          console.log(`Step 3: Saved ${publication.title} to the database.`);
+        }
+
+        console.log('Database and publication data initialized successfully');
+      });
+
+  } catch (error) {
+    console.error('Error initializing publication server:', error);
+    process.exit(1);
+  }
+}
 
 
 
@@ -184,4 +221,4 @@ async function initializeFacultyServer() {
 
 // ... (Your existing code for initializeImageServer and initializePublicationServer)
 
-module.exports = { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer };
+module.exports = { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer,initializeFocusSevenPublicationServer };

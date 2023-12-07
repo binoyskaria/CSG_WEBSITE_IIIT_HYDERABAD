@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Image Upload, Download, and Publication</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Image Upload, Download, and Publication</h1>
 
         <form id="imageUploadForm" class="form" enctype="multipart/form-data">
             <label for="imageInput">Select Image:</label>
-            <input type="file" id="imageInput" accept="image/*" >
-            
-            <label for="titleInput">Title:</label>
-            <input type="text" id="titleInput" >
+            <input type="file" id="imageInput" accept="image/*">
 
-            
+            <label for="titleInput">Title:</label>
+            <input type="text" id="titleInput">
+
+
 
             <label for="descriptionInput">Description:</label>
-            <textarea id="descriptionInput" ></textarea>
+            <textarea id="descriptionInput"></textarea>
 
             <button type="submit">Upload Image</button>
         </form>
@@ -29,13 +31,13 @@
         <form id="facultyImageUploadForm" class="form" enctype="multipart/form-data">
             <label for="facultyImageInput">Select Faculty Image:</label>
             <input type="file" id="facultyImageInput" accept="image/*">
-    
+
             <label for="facultyTitleInput">Title:</label>
             <input type="text" id="facultyTitleInput">
-    
+
             <label for="facultyDescriptionInput">Description:</label>
             <textarea id="facultyDescriptionInput"></textarea>
-    
+
             <button type="submit">Upload Faculty Image</button>
         </form>
 
@@ -44,40 +46,58 @@
 
         <form id="publicationDataForm" class="form">
             <label for="publicationTitleInput">Publication Title:</label>
-            <input type="text" id="publicationTitleInput" >
+            <input type="text" id="publicationTitleInput">
 
             <label for="publicationDateInput">Publication Date:</label>
-            <input type="text" id="publicationDateInput" >
+            <input type="text" id="publicationDateInput">
 
             <label for="publicationDescriptionInput">Publication Description:</label>
-            <textarea id="publicationDescriptionInput" ></textarea>
+            <textarea id="publicationDescriptionInput"></textarea>
 
             <button type="button" id="addPublicationButton">Add Publication</button>
         </form>
 
         <form id="projectDataForm" class="form">
             <label for="projectTitleInput">Project Title:</label>
-            <input type="text" id="projectTitleInput" >
-        
+            <input type="text" id="projectTitleInput">
+
             <label for="projectFacultyInput">Faculty:</label>
-            <input type="text" id="projectFacultyInput" >
-        
+            <input type="text" id="projectFacultyInput">
+
             <label for="projectCompanyFundInput">Company Fund:</label>
-            <input type="text" id="projectCompanyFundInput" >
-        
+            <input type="text" id="projectCompanyFundInput">
+
             <label for="projectDateInput">Project Date:</label>
-            <input type="text" id="projectDateInput" >
-        
+            <input type="text" id="projectDateInput">
+
             <label for="projectSummaryInput">Project Summary:</label>
-            <textarea id="projectSummaryInput" ></textarea>
-        
+            <textarea id="projectSummaryInput"></textarea>
+
             <button type="button" id="addProjectButton">Add Project</button>
         </form>
-        
 
-    
+
+        <h1>Add/Update FocusSevenPublication</h1>
+        <form id="focusSevenForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br>
+
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required><br>
+
+            <label for="link">Link:</label>
+            <input type="text" id="link" name="link" required><br>
+
+            <label for="index">Index:</label>
+            <input type="number" id="index" name="index" required><br>
+
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+
+
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

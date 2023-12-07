@@ -90,7 +90,8 @@ function addPublication(publicationData) {
 
 
 
-
+//addFocusSevenPublication
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function addProject(projectData) {
     console.log('Adding project...');
 
@@ -113,7 +114,7 @@ function addProject(projectData) {
         });
 }
 
-// Event listener for the "Add Project" button
+
 document.getElementById('addProjectButton').addEventListener('click', function () {
     const projectData = {
         title: document.getElementById('projectTitleInput').value,
@@ -126,8 +127,8 @@ document.getElementById('addProjectButton').addEventListener('click', function (
     addProject(projectData);
 });
 
-
-
+//facultyImageUploadForm
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 document.getElementById('facultyImageUploadForm').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -178,3 +179,40 @@ function uploadFacultyImage(formData) {
             alert('Failed to upload faculty image. Please try again.');
         });
 }
+
+
+//addFocusSevenPublication
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function addFocusSevenPublication(publicationData) {
+    console.log('Adding or updating FocusSevenPublication...');
+
+    fetch('http://localhost:3000/api/admin/addFocusSevenPublication', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(publicationData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('FocusSevenPublication added/updated successfully:', data);
+            // You can update the UI or perform other actions as needed
+            alert('FocusSevenPublication added/updated successfully!');
+        })
+        .catch(error => {
+            console.error('Error adding/updating FocusSevenPublication:', error);
+            alert('Failed to add/update FocusSevenPublication. Please try again.');
+        });
+}
+
+
+document.getElementById('addFocusSevenPublicationButton').addEventListener('click', function () {
+    const publicationData = {
+        title: document.getElementById('publicationTitleInput').value,
+        author: document.getElementById('publicationAuthorInput').value,
+        link: document.getElementById('publicationLinkInput').value,
+        index: document.getElementById('publicationIndexInput').value,
+    };
+
+    addFocusSevenPublication(publicationData);
+});

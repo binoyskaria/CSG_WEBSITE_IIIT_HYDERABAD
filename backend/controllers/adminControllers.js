@@ -1,6 +1,7 @@
 const Image = require('../models/Image');
 const FacultyImage = require('../models/FacultyImage');
 const Publication = require('../models/Publication');
+const FocusSevenPublication = require('../models/FocusSevenPublication');
 const Project = require('../models/Project');
 const fs = require('fs').promises;
 const multer = require('multer');
@@ -148,6 +149,70 @@ const handleFacultyUpload = async (req, res) => {
 
 
 
+// Function to handle adding or updating a publication
+const handleAddFocusSevenPublication = async (req, res) => {
+  try {
+    const { title, author, link, index } = req.body;
+
+    console.log('FocusSevenPublication details:', {
+      title: title,
+      author: author,
+      link: link,
+      index: index,
+    });
+
+    if (!title || !author || !link || !index) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Check if the publication with the given index exists in MongoDB
+    let existingPublication = await FocusSevenPublication.findOne({ index: index });
+
+    if (existingPublication) {
+      // Update the existing publication in MongoDB
+      existingPublication.title = title;
+      existingPublication.author = author;
+      existingPublication.link = link;
+    } else {
+      // Create a new publication in MongoDB if it doesn't exist
+      existingPublication = new FocusSevenPublication({
+        title,
+        author,
+        link,
+        index,
+      });
+    }
+
+    // Save/update the publication in MongoDB
+    const savedPublication = await existingPublication.save();
+
+    // Update the CSV file
+    const publicationCsvPath = './data/focusSevenPublication.csv';
+    const csvData = await fs.promises.readFile(publicationCsvPath, 'utf-8');
+    const rows = csvData.split('\n');
+
+    // Update the CSV row based on the provided index
+    if (index <= rows.length) {
+      rows[index - 1] = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}`;
+      await fs.promises.writeFile(publicationCsvPath, rows.join('\n'));
+    } else {
+      // Handle the case where the index is greater than the number of rows in CSV
+      return res.status(400).json({ error: 'Invalid index' });
+    }
+
+    console.log('FocusSevenPublication data updated in CSV:', {
+      title: savedPublication.title,
+      date: savedPublication.date,
+      description: savedPublication.description,
+    });
+
+    res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
+  } catch (error) {
+    console.error('Error adding/updating FocusSevenPublication:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 
 
@@ -247,4 +312,4 @@ const handleAddProject = async (req, res) => {
   }
 };
 
-module.exports = { handleImageUpload,handleFacultyUpload, handleAddPublication, handleAddProject };
+module.exports = { handleImageUpload,handleFacultyUpload, handleAddPublication, handleAddProject,handleAddFocusSevenPublication };
