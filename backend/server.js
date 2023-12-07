@@ -3,12 +3,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
 const adminRoutes = require('./routes/adminRoutes');
-const {  initializeImageServer, initializePublicationServer, initializeProjectServer,initializeFacultyServer,initializeFocusSevenPublicationServer } = require('./initServer');
+const { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer, initializeFocusSevenPublicationServer } = require('./initServer');
+
+require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-mongoose.connect('mongodb+srv://csgiiit2:iiitcsg@cluster0.rqszplh.mongodb.net/', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
