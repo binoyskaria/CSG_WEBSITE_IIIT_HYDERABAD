@@ -260,114 +260,51 @@
 	// www.bytewebster.com
 	// www.bytewebster.com
 
+	async function fetchFacultyData() {
+		try {
+		  const response = await fetch('http://localhost:3000/api/faculty/download/allFaculty');
+		  const facultyData = await response.json();
+	  
+		  // Map fetched data to imageUrls and imageInfos
+		  imageUrls.length = 0;
+		  imageInfos.length = 0;
+	  
+		  facultyData.forEach((data) => {
+			imageUrls.push(`data:image/png;base64, ${data.imageData}`);
+			imageInfos.push({
+			  name: data.title,
+			  description: data.description,
+			});
+		  });
+	  
+		  // Initial card setup
+		 
+		} catch (error) {
+		  console.error('Error fetching faculty data:', error);
+		}
+	  }
+
 
 	let currentIndex = 0; // Track the current index in the list of image URLs
 	const imageUrls = [
 	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",	
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg",
-	  "./adhish.jpg"
+	  
+	  
 	  
 	  // Add more image URLs as needed
 	];
 	const imageInfos = [
 		{
 			name: "Ziaul Choudhury",
-			location: "f",
+			
 			description: "Ph.D",
-		},
-		{
-			name: "Anish Gulati",
-			location: "b",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Geethika",
-			location: "c",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Karthik Ganti",
-			location: "d",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Shashwat Khandelwal",
-			location: "e",
-			description: "B.Tech.Hons",
-		},
-		{
-			name: "Kunal Garg",
-			location: "f",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Sreevatsav",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Sai Manish",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Praneeth",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Pratik Jain",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Shrenik Jain",
-			location: "f",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Shashwat Srivastava",
-			location: "f",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Sai Sukumar",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Vinamra Banera",
-			location: "f",
-			description: "B.Tech.Hons.+MS",
-		},
-		{
-			name: "Vishal Reddy Burri",
-			location: "f",
-			description: "B.Tech.Hons.",
-		},
-		{
-			name: "Yash Khandelwal",
-			location: "f",
-			description: "B.Tech.Hons.+MS",
 		},
 		
 	
 		// Add more image info objects as needed
 	];
-	
+	fetchFacultyData();
+
 	
 	const { gsap, imagesLoaded } = window;
 	
