@@ -250,43 +250,402 @@
 })(jQuery);
 
 
-let currentIndex = 0; // Track the current index in the list of image URLs
-const imageUrls = [
-    "suresh.jpg",
-    "Deepak.jpg",
-    "Tejas_b.jpg",
-    // Add more image URLs as needed
-];
 
-// Define the downloadImage function
-async function downloadImage(filename) {
-    try {
-        const response = await fetch(`http://localhost:3000/api/download/${filename}`, {
-            method: 'GET',
-        });
 
-        const blob = await response.blob();
-        return window.URL.createObjectURL(blob);
-    } catch (error) {
-        console.error('Error downloading image:', error);
-        return null;
-    }
-}
 
-// Update image URLs and populate HTML page when the page loads
-window.onload = async () => {
-    for (let i = 0; i < imageUrls.length; i++) {
-        const imageUrl = await downloadImage(imageUrls[i]);
-        if (imageUrl) {
-            imageUrls[i] = imageUrl;
-            updateImageInHTML(i, imageUrl);
-        }
-    }
-};
 
-// Function to update the image in the HTML page
-function updateImageInHTML(index, imageUrl) {
-    const sections = document.querySelectorAll('.box .row .col-4'); // Adjust the selector based on your HTML structure
-    const imageElement = sections[index].querySelector('.img-gradient-border img');
-    imageElement.src = imageUrl;
-}
+
+
+	// www.bytewebster.com
+	// www.bytewebster.com
+	// www.bytewebster.com
+
+
+	let currentIndex = 0; // Track the current index in the list of image URLs
+	const imageUrls = [
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",	
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg",
+	  "./adhish.jpg"
+	  
+	  // Add more image URLs as needed
+	];
+	const imageInfos = [
+		{
+			name: "Ziaul Choudhury",
+			location: "f",
+			description: "Ph.D",
+		},
+		{
+			name: "Anish Gulati",
+			location: "b",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Geethika",
+			location: "c",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Karthik Ganti",
+			location: "d",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Shashwat Khandelwal",
+			location: "e",
+			description: "B.Tech.Hons",
+		},
+		{
+			name: "Kunal Garg",
+			location: "f",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Sreevatsav",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Sai Manish",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Praneeth",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Pratik Jain",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Shrenik Jain",
+			location: "f",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Shashwat Srivastava",
+			location: "f",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Sai Sukumar",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Vinamra Banera",
+			location: "f",
+			description: "B.Tech.Hons.+MS",
+		},
+		{
+			name: "Vishal Reddy Burri",
+			location: "f",
+			description: "B.Tech.Hons.",
+		},
+		{
+			name: "Yash Khandelwal",
+			location: "f",
+			description: "B.Tech.Hons.+MS",
+		},
+		
+	
+		// Add more image info objects as needed
+	];
+	
+	
+	const { gsap, imagesLoaded } = window;
+	
+	const buttons = {
+		prev: document.querySelector(".btn--left"),
+		next: document.querySelector(".btn--right"),
+	};
+	const cardsContainerEl = document.querySelector(".cards__wrapper");
+	const appBgContainerEl = document.querySelector(".app__bg");
+	
+	const cardInfosContainerEl = document.querySelector(".info__wrapper");
+	
+	buttons.next.addEventListener("click", () => swapCards("right"));
+	
+	buttons.prev.addEventListener("click", () => swapCards("left"));
+	
+	function swapCards(direction) {
+		const currentCardEl = cardsContainerEl.querySelector(".current--card");
+		const previousCardEl = cardsContainerEl.querySelector(".previous--card");
+		const nextCardEl = cardsContainerEl.querySelector(".next--card");
+	
+		const currentBgImageEl = appBgContainerEl.querySelector(".current--image");
+		const previousBgImageEl = appBgContainerEl.querySelector(".previous--image");
+		const nextBgImageEl = appBgContainerEl.querySelector(".next--image");
+	
+	
+		 // Update the current index based on the direction
+		 currentIndex = direction === "right" ? (currentIndex + 1) % imageUrls.length : (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+		 if (direction === "right") {
+			// Set the new images for the previous card
+			previousCardEl.querySelector("img").src = imageUrls[currentIndex];
+	
+			// Set the new info for the previous card
+			let previousInfoEl = cardInfosContainerEl.querySelector(".previous--info");
+			const previousInfoName = previousInfoEl.querySelector(".name");
+			const previousInfoLocation = previousInfoEl.querySelector(".location");
+			const previousInfoDescription = previousInfoEl.querySelector(".description");
+	
+			previousInfoName.textContent = imageInfos[currentIndex].name;
+			// previousInfoLocation.textContent = imageInfos[currentIndex].location;
+			previousInfoDescription.textContent = imageInfos[currentIndex].description;
+	
+			// ...
+		}
+		 
+		 
+	   
+	
+		changeInfo(direction);
+		swapCardsClass();
+	
+		removeCardEvents(currentCardEl);
+	
+		function swapCardsClass() {
+			currentCardEl.classList.remove("current--card");
+			previousCardEl.classList.remove("previous--card");
+			nextCardEl.classList.remove("next--card");
+	
+			currentBgImageEl.classList.remove("current--image");
+			previousBgImageEl.classList.remove("previous--image");
+			nextBgImageEl.classList.remove("next--image");
+	
+		
+	
+			currentCardEl.style.zIndex = "50";
+			currentBgImageEl.style.zIndex = "-2";
+	
+			if (direction === "right") {
+				previousCardEl.style.zIndex = "20";
+				nextCardEl.style.zIndex = "30";
+	
+				nextBgImageEl.style.zIndex = "-1";
+	
+				currentCardEl.classList.add("previous--card");
+				previousCardEl.classList.add("next--card");
+				nextCardEl.classList.add("current--card");
+	
+				currentBgImageEl.classList.add("previous--image");
+				previousBgImageEl.classList.add("next--image");
+				nextBgImageEl.classList.add("current--image");
+			} else if (direction === "left") {
+				previousCardEl.style.zIndex = "30";
+				nextCardEl.style.zIndex = "20";
+	
+				previousBgImageEl.style.zIndex = "-1";
+	
+				currentCardEl.classList.add("next--card");
+				previousCardEl.classList.add("current--card");
+				nextCardEl.classList.add("previous--card");
+	
+				currentBgImageEl.classList.add("next--image");
+				previousBgImageEl.classList.add("current--image");
+				nextBgImageEl.classList.add("previous--image");
+			}
+		}
+	}
+	
+	function changeInfo(direction) {
+		let currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+		let previousInfoEl = cardInfosContainerEl.querySelector(".previous--info");
+		let nextInfoEl = cardInfosContainerEl.querySelector(".next--info");
+	
+		gsap.timeline()
+			.to([buttons.prev, buttons.next], {
+			duration: 0.2,
+			opacity: 0.5,
+			pointerEvents: "none",
+		})
+			.to(
+			currentInfoEl.querySelectorAll(".text"),
+			{
+				duration: 0.4,
+				stagger: 0.1,
+				translateY: "-120px",
+				opacity: 0,
+			},
+			"-="
+		)
+			.call(() => {
+			swapInfosClass(direction);
+		})
+			.call(() => initCardEvents())
+			.fromTo(
+			direction === "right"
+			? nextInfoEl.querySelectorAll(".text")
+			: previousInfoEl.querySelectorAll(".text"),
+			{
+				opacity: 0,
+				translateY: "40px",
+			},
+			{
+				duration: 0.4,
+				stagger: 0.1,
+				translateY: "0px",
+				opacity: 1,
+			}
+		)
+			.to([buttons.prev, buttons.next], {
+			duration: 0.2,
+			opacity: 1,
+			pointerEvents: "all",
+		});
+	
+		function swapInfosClass() {
+			currentInfoEl.classList.remove("current--info");
+			previousInfoEl.classList.remove("previous--info");
+			nextInfoEl.classList.remove("next--info");
+	
+			if (direction === "right") {
+				currentInfoEl.classList.add("previous--info");
+				nextInfoEl.classList.add("current--info");
+				previousInfoEl.classList.add("next--info");
+			} else if (direction === "left") {
+				currentInfoEl.classList.add("next--info");
+				nextInfoEl.classList.add("previous--info");
+				previousInfoEl.classList.add("current--info");
+			}
+		}
+	}
+	
+	function updateCard(e) {
+		const card = e.currentTarget;
+		const box = card.getBoundingClientRect();
+		const centerPosition = {
+			x: box.left + box.width / 2,
+			y: box.top + box.height / 2,
+		};
+		let angle = Math.atan2(e.pageX - centerPosition.x, 0) * (35 / Math.PI);
+		gsap.set(card, {
+			"--current-card-rotation-offset": `${angle}deg`,
+		});
+		const currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+		gsap.set(currentInfoEl, {
+			rotateY: `${angle}deg`,
+		});
+	}
+	
+	function resetCardTransforms(e) {
+		const card = e.currentTarget;
+		const currentInfoEl = cardInfosContainerEl.querySelector(".current--info");
+		gsap.set(card, {
+			"--current-card-rotation-offset": 0,
+		});
+		gsap.set(currentInfoEl, {
+			rotateY: 0,
+		});
+	}
+	
+	function initCardEvents() {
+		const currentCardEl = cardsContainerEl.querySelector(".current--card");
+		currentCardEl.addEventListener("pointermove", updateCard);
+		currentCardEl.addEventListener("pointerout", (e) => {
+			resetCardTransforms(e);
+		});
+	}
+	
+	initCardEvents();
+	
+	function removeCardEvents(card) {
+		card.removeEventListener("pointermove", updateCard);
+	}
+	
+	function init() {
+	
+		let tl = gsap.timeline();
+	
+		tl.to(cardsContainerEl.children, {
+			delay: 0.15,
+			duration: 0.5,
+			stagger: {
+				ease: "power4.inOut",
+				from: "right",
+				amount: 0.1,
+			},
+			"--card-translateY-offset": "0%",
+		})
+			.to(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
+			delay: 0.5,
+			duration: 0.4,
+			stagger: 0.1,
+			opacity: 1,
+			translateY: 0,
+		})
+			.to(
+			[buttons.prev, buttons.next],
+			{
+				duration: 0.4,
+				opacity: 1,
+				pointerEvents: "all",
+			},
+			"-=0.4"
+		);
+	}
+	
+	const waitForImages = () => {
+		const images = [...document.querySelectorAll("img")];
+		const totalImages = images.length;
+		let loadedImages = 0;
+		const loaderEl = document.querySelector(".loader span");
+	
+		gsap.set(cardsContainerEl.children, {
+			"--card-translateY-offset": "100vh",
+		});
+		gsap.set(cardInfosContainerEl.querySelector(".current--info").querySelectorAll(".text"), {
+			translateY: "40px",
+			opacity: 0,
+		});
+		gsap.set([buttons.prev, buttons.next], {
+			pointerEvents: "none",
+			opacity: "0",
+		});
+	
+		images.forEach((image) => {
+			imagesLoaded(image, (instance) => {
+				if (instance.isComplete) {
+					loadedImages++;
+					let loadProgress = loadedImages / totalImages;
+	
+					gsap.to(loaderEl, {
+						duration: 1,
+						scaleX: loadProgress,
+						backgroundColor: `hsl(${loadProgress * 120}, 100%, 50%`,
+					});
+	
+					if (totalImages == loadedImages) {
+						gsap.timeline()
+							.to(".loading__wrapper", {
+							duration: 0.8,
+							opacity: 0,
+							pointerEvents: "none",
+						})
+							.call(() => init());
+					}
+				}
+			});
+		});
+	};
+	
+	waitForImages();
+	
+	
