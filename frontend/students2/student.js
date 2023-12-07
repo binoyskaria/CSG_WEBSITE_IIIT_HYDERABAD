@@ -39,7 +39,7 @@ async function fetchAndCreateStudents() {
 
     studentsData.forEach((student) => {
       console.log('Creating student with data:', student);
-      createStudent(student.imageName, student.description, `data:image/*;base64,${student.imageData}`);
+      createStudent(student.title, student.description, `data:image/*;base64,${student.imageData}`);
       console.log('Student created:', student);
     });
 

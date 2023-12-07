@@ -1,17 +1,17 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const Image = require('../models/Image');
+const FacultyImage = require('../models/FacultyImage');
 
 const router = express.Router();
 
 
 // Route to handle downloading all images
-router.get('/download/all', async (req, res) => {
+router.get('/download/allFaculty', async (req, res) => {
   try {
     console.log('Fetching all images from the database...');
 
-    const images = await Image.find();
+    const images = await FacultyImage.find();
 
     if (!images || images.length === 0) {
       console.log('No images found in the database.');
@@ -20,7 +20,7 @@ router.get('/download/all', async (req, res) => {
 
     const imageResponses = await Promise.all(
       images.map(async (image) => {
-        const imagePath = path.join(__dirname, '../uploads/students/', image.imageUrl);
+        const imagePath = path.join(__dirname, '../uploads/faculty/', image.imageUrl);
 
         console.log(`Reading image data for ${image.imageUrl}...`);
 

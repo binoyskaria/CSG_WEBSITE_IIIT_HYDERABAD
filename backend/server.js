@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
 const adminRoutes = require('./routes/adminRoutes');
-const { initializeImageServer, initializePublicationServer, initializeProjectServer } = require('./initServer');
+const {  initializeImageServer, initializePublicationServer, initializeProjectServer,initializeFacultyServer } = require('./initServer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +33,7 @@ app.use('/api/admin', adminRoutes);
 initializeImageServer();
 initializePublicationServer();
 initializeProjectServer();
+initializeFacultyServer();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

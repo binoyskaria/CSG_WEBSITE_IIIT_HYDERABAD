@@ -1,4 +1,5 @@
 const Image = require('../models/Image');
+const FacultyImage = require('../models/FacultyImage');
 const Publication = require('../models/Publication');
 const Project = require('../models/Project');
 const fs = require('fs').promises;
@@ -73,6 +74,82 @@ const handleImageUpload = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+// Function to handle image upload
+const handleFacultyUpload = async (req, res) => {
+  try {
+    // Multer configuration for file upload
+    const storage = multer.diskStorage({
+      destination: './uploads/faculty/',
+      filename: function (req, file, cb) {
+        cb(null, file.originalname);
+      },
+    });
+
+    const upload = multer({
+      storage: storage,
+      limits: { fileSize: 10000000 }, // 10MB limit
+    }).single('image');
+
+    upload(req, res, async (err) => {
+      if (err) {
+        console.error('Error uploading image:', err);
+        return res.status(500).json({ error: 'Error uploading image' });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const { title, description } = req.body;
+
+      console.log('Image upload details:', {
+        imageUrl: req.file.filename,
+        title: title,
+        description: description,
+      });
+
+      const newImage = new FacultyImage({
+        imageUrl: req.file.filename,
+        title: title,
+        description: description,
+      });
+
+      console.log('New Image Object:', newImage);
+
+      const savedImage = await newImage.save();
+
+      // Append new image data to imageData.csv
+      const imageDataCsvPath = './data/facultyData.csv';
+      const imageDataCsvRow = `${savedImage.imageUrl}#${savedImage.title}#${savedImage.description}\n`;
+
+      await fs.appendFile(imageDataCsvPath, imageDataCsvRow);
+
+      console.log('Image data appended to CSV:', {
+        imageUrl: savedImage.imageUrl,
+        title: savedImage.title,
+        description: savedImage.description,
+      });
+
+      res.json({
+        message: 'Image uploaded successfully',
+        imageUrl: savedImage.imageUrl,
+        title: savedImage.title, 
+        description: savedImage.description,
+      });
+    });
+  } catch (error) {
+    console.error('Error handling image upload:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+
+
 
 // Function to handle adding a new publication
 const handleAddPublication = async (req, res) => {
@@ -170,4 +247,4 @@ const handleAddProject = async (req, res) => {
   }
 };
 
-module.exports = { handleImageUpload, handleAddPublication, handleAddProject };
+module.exports = { handleImageUpload,handleFacultyUpload, handleAddPublication, handleAddProject };

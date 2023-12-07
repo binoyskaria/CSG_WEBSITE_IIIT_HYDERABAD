@@ -25,6 +25,23 @@
             <button type="submit">Upload Image</button>
         </form>
 
+
+        <form id="facultyImageUploadForm" class="form" enctype="multipart/form-data">
+            <label for="facultyImageInput">Select Faculty Image:</label>
+            <input type="file" id="facultyImageInput" accept="image/*">
+    
+            <label for="facultyTitleInput">Title:</label>
+            <input type="text" id="facultyTitleInput">
+    
+            <label for="facultyDescriptionInput">Description:</label>
+            <textarea id="facultyDescriptionInput"></textarea>
+    
+            <button type="submit">Upload Faculty Image</button>
+        </form>
+
+
+
+
         <form id="publicationDataForm" class="form">
             <label for="publicationTitleInput">Publication Title:</label>
             <input type="text" id="publicationTitleInput" >
@@ -58,14 +75,7 @@
         </form>
         
 
-        <label for="filenameInput">Enter Filename for Download:</label>
-        <input type="text" id="filenameInput" placeholder="Enter filename with extension">
-
-        <button id="downloadButton">Download Image</button>
-
-        <div id="imageContainer" class="image-container">
-            <img id="downloadedImage" alt="Downloaded Image">
-        </div>
+    
     </div>
 
     <script src="script.js"></script>

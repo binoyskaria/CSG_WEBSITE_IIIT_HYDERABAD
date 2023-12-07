@@ -2,6 +2,7 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 const Image = require('./models/Image');
+const FacultyImage = require('./models/FacultyImage');
 const Publication = require('./models/Publication');
 const Project = require('./models/Project'); // Add this line
 
@@ -45,53 +46,7 @@ async function initializeProjectServer() {
 
 
 
-async function initializeImageServer() {
-  try {
-    const imageCount = await Image.countDocuments({});
-    console.log(`Step 1: Counted ${imageCount} images in the collection.`);
 
-    if (imageCount > 0) {
-      await Image.deleteMany({});
-      console.log(`${imageCount} images deleted.`);
-    } else {
-      console.log('No images to delete.');
-    }
-
-    const imageData = [];
-    fs.createReadStream('./data/imageData.csv')
-    .pipe(csv({ separator: '#' }))
-      .on('data', (row) => {
-        imageData.push(row);
-      })
-      .on('end', async () => {
-        console.log('Step 2: Read image data from CSV file.');
-
-        const files = fs.readdirSync('./uploads/students/');
-        for (const file of files) {
-          const imageRecord = imageData.find((data) => data.imagename === file);
-
-          if (imageRecord) {
-            const { name, imagedescription } = imageRecord;
-            const newImage = new Image({
-              imageUrl: file,
-              imageName: name || '',
-              description: imagedescription || '',
-            });
-            await newImage.save();
-            console.log(`Step 3: Saved ${file} (${name}, ${imagedescription}) to the database.`);
-          } else {
-            console.log(`Warning: No data found for ${file} in the CSV file.`);
-          }
-        }
-
-        console.log('Database and file uploads initialized successfully');
-      });
-
-  } catch (error) {
-    console.error('Error initializing image server:', error);
-    process.exit(1);
-  }
-}
 
 async function initializePublicationServer() {
   try {
@@ -130,9 +85,7 @@ async function initializePublicationServer() {
   }
 }
 
-
-
-async function initializeFacultyServer() {
+async function initializeImageServer() {
   try {
     const imageCount = await Image.countDocuments({});
     console.log(`Step 1: Counted ${imageCount} images in the collection.`);
@@ -145,8 +98,56 @@ async function initializeFacultyServer() {
     }
 
     const imageData = [];
+    fs.createReadStream('./data/imageData.csv')
+      .pipe(csv({ separator: '#' }))
+      .on('data', (row) => {
+        imageData.push(row);
+      })
+      .on('end', async () => {
+        console.log('Step 2: Read image data from CSV file.');
+
+        const files = fs.readdirSync('./uploads/students/');
+        for (const file of files) {
+          const imageRecord = imageData.find((data) => data.imagename === file);
+
+          if (imageRecord) {
+            const { name, imagedescription } = imageRecord;
+            const newImage = new Image({
+              imageUrl: file,
+              title: name || '',
+              description: imagedescription || '',
+            });
+            await newImage.save();
+            console.log(`Step 3: Saved ${file} (${name}, ${imagedescription}) to the database.`);
+          } else {
+            console.log(`Warning: No data found for ${file} in the CSV file.`);
+          }
+        }
+
+        console.log('Database and file uploads initialized successfully');
+      });
+
+  } catch (error) {
+    console.error('Error initializing image server:', error);
+    process.exit(1);
+  }
+}
+
+async function initializeFacultyServer() {
+  try {
+    const imageCount = await FacultyImage.countDocuments({});
+    console.log(`Step 1: Counted ${imageCount} images in the collection.`);
+
+    if (imageCount > 0) {
+      await FacultyImage.deleteMany({});
+      console.log(`${imageCount} images deleted.`);
+    } else {
+      console.log('No images to delete.');
+    }
+
+    const imageData = [];
     fs.createReadStream('./data/facultyData.csv')
-    .pipe(csv({ separator: '#' }))
+      .pipe(csv({ separator: '#' }))
       .on('data', (row) => {
         imageData.push(row);
       })
@@ -159,9 +160,9 @@ async function initializeFacultyServer() {
 
           if (imageRecord) {
             const { name, imagedescription } = imageRecord;
-            const newImage = new Image({
+            const newImage = new FacultyImage({
               imageUrl: file,
-              imageName: name || '',
+              title: name || '',
               description: imagedescription || '',
             });
             await newImage.save();
@@ -183,4 +184,4 @@ async function initializeFacultyServer() {
 
 // ... (Your existing code for initializeImageServer and initializePublicationServer)
 
-module.exports = { initializeImageServer, initializePublicationServer, initializeProjectServer,initializeFacultyServer };
+module.exports = { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer };

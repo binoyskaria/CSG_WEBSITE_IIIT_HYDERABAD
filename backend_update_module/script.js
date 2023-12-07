@@ -88,44 +88,7 @@ function addPublication(publicationData) {
         });
 }
 
-document.getElementById('downloadButton').addEventListener('click', function () {
-    const filenameInput = document.getElementById('filenameInput');
-    const filename = filenameInput.value;
 
-    if (!filename) {
-        alert('Please enter a filename');
-        return;
-    }
-
-    console.log('Downloading image with filename:', filename);
-
-    downloadImage(filename);
-});
-
-function downloadImage(filename) {
-    console.log('Downloading image...');
-
-    fetch(`http://localhost:3000/api/download/${filename}`, {
-        method: 'GET',
-    })
-        .then(response => response.blob())
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-
-            // Set the src attribute of the image element to the downloaded image URL
-            const downloadedImage = document.getElementById('downloadedImage');
-            downloadedImage.src = url;
-
-            // Display the image container
-            const imageContainer = document.getElementById('imageContainer');
-            imageContainer.style.display = 'block';
-            alert('Image downloaded successfully!');
-        })
-        .catch(error => {
-            console.error('Error downloading image:', error);
-            alert('Failed to download image. Please try again.');
-        });
-}
 
 
 function addProject(projectData) {
@@ -162,3 +125,56 @@ document.getElementById('addProjectButton').addEventListener('click', function (
 
     addProject(projectData);
 });
+
+
+
+document.getElementById('facultyImageUploadForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const imageInput = document.getElementById('facultyImageInput');
+    const titleInput = document.getElementById('facultyTitleInput');
+    const descriptionInput = document.getElementById('facultyDescriptionInput');
+
+    const file = imageInput.files[0];
+
+    if (!file || !titleInput.value || !descriptionInput.value) {
+        alert('Please fill in all fields and select an image');
+        return;
+    }
+
+    console.log('Form data collected:', {
+        file,
+        title: titleInput.value,
+        description: descriptionInput.value,
+    });
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', titleInput.value);
+    formData.append('description', descriptionInput.value);
+
+    console.log('Form data ready for upload:', formData);
+
+    uploadFacultyImage(formData);
+});
+
+function uploadFacultyImage(formData) {
+    console.log('Uploading faculty image...');
+
+    fetch('http://localhost:3000/api/admin/facultyUpload', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Faculty Image uploaded successfully:', data);
+
+            // If you want to do something with the response, you can add code here
+
+            alert('Faculty Image uploaded successfully!');
+        })
+        .catch(error => {
+            console.error('Error uploading faculty image:', error);
+            alert('Failed to upload faculty image. Please try again.');
+        });
+}
