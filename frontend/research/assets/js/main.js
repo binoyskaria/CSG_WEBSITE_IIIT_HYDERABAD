@@ -270,6 +270,38 @@ function performGoogleSearch(clickedElement) {
 }
 
 
+async function fetchFocusSevenPublications() {
+	try {
+		const response = await fetch('http://localhost:3000/api/publications/getFocusSevenPublications');
+		const data = await response.json();
+		return data.publications;
+	} catch (error) {
+		console.error('Error fetching FocusSevenPublications:', error);
+		return [];
+	}
+}
 
+// Function to populate the articles
+async function populateArticles() {
+	const responseData = await fetchFocusSevenPublications();
 
+	responseData.forEach((publication, index) => {
+		const articleId = `article${index + 1}`;
+		const article = document.getElementById(articleId);
 
+		// Check if the article exists
+		if (article) {
+			const header = article.querySelector('header');
+			const titleLink = header.querySelector('h3 a');
+			const authorParagraph = header.querySelector('p');
+
+			// Populate article content
+			titleLink.textContent = publication.title;
+			titleLink.href = publication.link;
+			authorParagraph.textContent = `${publication.author}`;
+		}
+	});
+}
+
+// Call the function to populate articles when the page loads
+window.onload = populateArticles;
