@@ -4344,6 +4344,7 @@ input, select, textarea {
 }
 
 .infoList {
+	margin-top: 20%;
   position: absolute;
   width: calc(3 * var(--card-width));
   height: var(--card-height);
@@ -4361,6 +4362,7 @@ input, select, textarea {
 }
 
 .info {
+
   margin-bottom: calc(var(--card-height) / 8);
   margin-left: calc(var(--card-width) / 1.5);
   transform: translateZ(2rem);
@@ -4375,6 +4377,7 @@ input, select, textarea {
   width: fit-content;
 }
 .info .name{
+	
 	font-size: xx-large;
 	text-transform: uppercase;
 }
@@ -4384,10 +4387,11 @@ input, select, textarea {
 }
 
 .info .description {
-	
+	color: #ffffff !important;
   --text-size-offset: 0.08;
   font-weight: 500;
 }
+
 .info.current--info {
   opacity: 1;
   display: block;
