@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 const csv = require('fast-csv');
 const csvParser = require('csv-parser');
+const { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer, initializeFocusSevenPublicationServer } = require('../initServer');
 
 
 
@@ -211,13 +212,6 @@ const handleAddFocusSevenPublication = async (req, res) => {
 
 
 
-
-
-
-
-
-
-// Function to handle adding a new publication
 const handleAddPublication = async (req, res) => {
   try {
     const { title, date, description } = req.body;
@@ -254,6 +248,8 @@ const handleAddPublication = async (req, res) => {
       description: savedPublication.description,
     });
 
+    await sortCsvByDateDescending();
+    await initializePublicationServer();
     res.status(201).json({
       message: 'Publication added successfully',
       publication: savedPublication,
@@ -264,6 +260,58 @@ const handleAddPublication = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+
+
+// Function to handle adding a new publication
+// const handleAddPublication = async (req, res) => {
+//   try {
+//     const { title, date, description } = req.body;
+
+//     console.log('Publication details:', {
+//       title: title,
+//       date: date,
+//       description: description,
+//     });
+
+//     if (!title || !date || !description) {
+//       return res.status(400).json({ error: 'Missing required fields' });
+//     }
+
+//     const newPublication = new Publication({
+//       title,
+//       date,
+//       description,
+//     });
+
+//     console.log('New Publication Object:', newPublication);
+
+//     const savedPublication = await newPublication.save();
+
+//     // Append new publication data to publication.csv
+//     const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
+//     const publicationCsvRow = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}\n`;
+
+//     await fs.appendFile(publicationCsvPath, publicationCsvRow);
+
+//     console.log('Publication data appended to CSV:', {
+//       title: savedPublication.title,
+//       date: savedPublication.date,
+//       description: savedPublication.description,
+//     });
+
+//     res.status(201).json({
+//       message: 'Publication added successfully',
+//       publication: savedPublication,
+//     });
+    
+//   } catch (error) {
+//     console.error('Error adding publication:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// };
 
 
 // Function to handle adding a new project
@@ -349,6 +397,33 @@ const handleLogin = async (req, res) => {
   }
 };
 
+const sortCsvByDateDescending = async () => {
+  const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
+
+  try {
+    // Read the CSV file
+    const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
+
+    // Parse the CSV data
+    const rows = csvData
+      .trim()
+      .split('\n')
+      .map((row) => row.split('#'));
+
+    // Sort the rows based on the second column (date) in descending order
+    const sortedRows = rows.sort((a, b) => new Date(b[1]) - new Date(a[1]));
+
+    // Join the sorted rows back into a CSV-formatted string
+    const sortedCsvData = sortedRows.map((row) => row.join('#')).join('\n')+ '\n';
+
+    // Overwrite the existing CSV file with the sorted data
+    await fs.writeFile(publicationCsvPath, sortedCsvData, 'utf-8');
+
+    console.log('CSV file sorted by date in descending order.');
+  } catch (error) {
+    console.error('Error sorting CSV file:', error);
+  }
+};
 
 
 
