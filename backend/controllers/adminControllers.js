@@ -82,10 +82,8 @@ const handleImageUpload = async (req, res) => {
 
 
 
-// Function to handle image upload
 const handleFacultyUpload = async (req, res) => {
   try {
-    // Multer configuration for file upload
     const storage = multer.diskStorage({
       destination: './uploads/faculty/',
       filename: function (req, file, cb) {
@@ -96,7 +94,7 @@ const handleFacultyUpload = async (req, res) => {
     const upload = multer({
       storage: storage,
       limits: { fileSize: 10000000 }, // 10MB limit
-    }).single('image');
+    }).single('file'); // Update with the correct field name
 
     upload(req, res, async (err) => {
       if (err) {
@@ -126,7 +124,6 @@ const handleFacultyUpload = async (req, res) => {
 
       const savedImage = await newImage.save();
 
-      // Append new image data to imageData.csv
       const imageDataCsvPath = './data/facultyData.csv';
       const imageDataCsvRow = `${savedImage.imageUrl}#${savedImage.title}#${savedImage.description}\n`;
 
@@ -150,8 +147,6 @@ const handleFacultyUpload = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-
 
 const handleAddFocusSevenPublication = async (req, res) => {
   try {
@@ -318,7 +313,7 @@ const handleLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
-    console.log('Received login request:', { username, password,hashedPassword });
+    console.log('Received login request:', { username, password, hashedPassword });
 
     // Fetch admin from the database based on the provided username
     const admin = await Admin.findOne({ username });

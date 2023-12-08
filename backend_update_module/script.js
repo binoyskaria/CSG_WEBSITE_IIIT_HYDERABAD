@@ -54,7 +54,7 @@ function uploadImage(formData) {
         .then(data => {
             console.log('Image uploaded successfully:', data);
 
-            const filenameInput = document.getElementById('filenameInput');
+            const filenameInput = document.getElementById('titleInput');
             filenameInput.value = data.imageUrl; // Use the uploaded filename for downloading
             alert('Image uploaded successfully!');
         })
@@ -167,7 +167,7 @@ document.getElementById('facultyImageUploadForm').addEventListener('submit', asy
     });
 
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);
     formData.append('title', titleInput.value);
     formData.append('description', descriptionInput.value);
 
@@ -180,7 +180,9 @@ function uploadFacultyImage(formData) {
     console.log('Uploading faculty image...');
 
     fetch('http://localhost:3000/api/admin/facultyUpload', {
-        'Authorization': 'Bearer ' + getToken(),
+        headers: {
+            'Authorization': 'Bearer ' + getToken(),
+        },
         method: 'POST',
         body: formData,
     })
