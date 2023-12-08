@@ -4443,3 +4443,13 @@ input, select, textarea {
     --card-height: 400px;
   }
 }
+
+.professor {
+	font-weight:800;
+	color: white;
+  }
+
+  .university {
+	font-style: italic;
+	color: wheat; /* Change the color as needed */
+  }

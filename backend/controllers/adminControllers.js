@@ -82,8 +82,10 @@ const handleImageUpload = async (req, res) => {
 
 
 
+// Function to handle image upload
 const handleFacultyUpload = async (req, res) => {
   try {
+    // Multer configuration for file upload
     const storage = multer.diskStorage({
       destination: './uploads/faculty/',
       filename: function (req, file, cb) {
@@ -94,7 +96,7 @@ const handleFacultyUpload = async (req, res) => {
     const upload = multer({
       storage: storage,
       limits: { fileSize: 10000000 }, // 10MB limit
-    }).single('file'); // Update with the correct field name
+    }).single('image');
 
     upload(req, res, async (err) => {
       if (err) {
@@ -124,6 +126,7 @@ const handleFacultyUpload = async (req, res) => {
 
       const savedImage = await newImage.save();
 
+      // Append new image data to imageData.csv
       const imageDataCsvPath = './data/facultyData.csv';
       const imageDataCsvRow = `${savedImage.imageUrl}#${savedImage.title}#${savedImage.description}\n`;
 
@@ -148,65 +151,65 @@ const handleFacultyUpload = async (req, res) => {
   }
 };
 
+
+
 const handleAddFocusSevenPublication = async (req, res) => {
   try {
-      const { title, author, link, index } = req.body;
+    const { title, author, link, index } = req.body;
 
-      console.log('FocusSevenPublication details:', { title, author, link, index });
+    console.log('FocusSevenPublication details:', { title, author, link, index });
 
-      if (!title || !author || !link || !index) {
-          return res.status(400).json({ error: 'Missing required fields' });
-      }
+    if (!title || !author || !link || !index) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
 
-      // Find the publication with the given index in MongoDB
-      let existingPublication = await FocusSevenPublication.findOne({ index });
+    // Find the publication with the given index in MongoDB
+    let existingPublication = await FocusSevenPublication.findOne({ index });
 
-      if (!existingPublication) {
-          return res.status(400).json({ error: 'Publication not found for the given index' });
-      }
+    if (!existingPublication) {
+      return res.status(400).json({ error: 'Publication not found for the given index' });
+    }
 
-      // Update the existing publication in MongoDB
-      existingPublication.title = title;
-      existingPublication.author = author;
-      existingPublication.link = link;
+    // Update the existing publication in MongoDB
+    existingPublication.title = title;
+    existingPublication.author = author;
+    existingPublication.link = link;
 
-      // Save/update the publication in MongoDB
-      const savedPublication = await existingPublication.save();
+    // Save/update the publication in MongoDB
+    const savedPublication = await existingPublication.save();
 
-      console.log('FocusSevenPublication updated:', {
-          title: savedPublication.title,
-          author: savedPublication.author,
-          link: savedPublication.link,
-      });
+    console.log('FocusSevenPublication updated:', {
+      title: savedPublication.title,
+      author: savedPublication.author,
+      link: savedPublication.link,
+    });
 
-      // Update the CSV file
-      const publicationCsvPath = './data/focusSevenPublication.csv';
-      const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
-      const rows = csvData.split('\n');
+    // Update the CSV file
+    const publicationCsvPath = './data/focusSevenPublication.csv';
+    const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
+    const rows = csvData.split('\n');
 
-      // Update the CSV row based on the provided index
-      if (index <= rows.length) {
-          rows[index] = `${savedPublication.index}#${savedPublication.title}#${savedPublication.author}#${savedPublication.link}`;
-          await fs.writeFile(publicationCsvPath, rows.join('\n'));
-      } else {
-          // Handle the case where the index is greater than the number of rows in CSV
-          return res.status(400).json({ error: 'Invalid index for updating CSV' });
-      }
+    // Update the CSV row based on the provided index
+    if (index <= rows.length) {
+      rows[index] = `${savedPublication.index}#${savedPublication.title}#${savedPublication.author}#${savedPublication.link}`;
+      await fs.writeFile(publicationCsvPath, rows.join('\n'));
+    } else {
+      // Handle the case where the index is greater than the number of rows in CSV
+      return res.status(400).json({ error: 'Invalid index for updating CSV' });
+    }
 
-      console.log('FocusSevenPublication data updated in CSV:', {
-          title: savedPublication.title,
-          date: savedPublication.date,
-          description: savedPublication.description,
-      });
+    console.log('FocusSevenPublication data updated in CSV:', {
+      title: savedPublication.title,
+      date: savedPublication.date,
+      description: savedPublication.description,
+    });
 
-      res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
+    res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
   } catch (error) {
-      console.error('Error updating FocusSevenPublication:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error updating FocusSevenPublication:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-
 
 
 
@@ -309,22 +312,22 @@ const handleAddProject = async (req, res) => {
 
 
 
-
+const secretKey = process.env.JWT_SECRET
 
 const handleLogin = async (req, res) => {
   try {
     const { username, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
-    console.log('Received login request:', { username, password, hashedPassword });
+    console.log('Received login request:', { username, password,hashedPassword });
 
     // Fetch admin from the database based on the provided username
     const admin = await Admin.findOne({ username });
 
     console.log('Retrieved admin from the database:', admin);
-
+z
     if (admin && bcrypt.compareSync(password, admin.password)) {
       console.log('Password is correct. Generating JWT token.');
-      const secretKey = process.env.JWT_SECRET
+
       const token = jwt.sign("admin", secretKey);
 
       console.log('JWT token generated:', token);

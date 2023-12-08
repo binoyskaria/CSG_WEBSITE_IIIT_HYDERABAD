@@ -36,10 +36,10 @@ strong {
 	color: inherit
 }
 
-.box,
+/* .box,
 body:after {
-	background: #fff
-}
+background: #fff 
+} */
 
 #banner,
 #banner .more,
@@ -928,7 +928,9 @@ ul {
 
 .box {
 	color: #39454b;
-	padding: 2em
+	padding: 2em;
+	
+	
 }
 
 #footer>*,
@@ -1660,7 +1662,9 @@ body.is-touch .poptrox-popup .nav-previous {
 	-webkit-justify-content: center;
 	-ms-justify-content: center;
 	justify-content: center;
-	text-align: center
+	text-align: center;
+	
+	
 }
 
 .main.style1 h2 {
@@ -2420,3 +2424,119 @@ body {
 	opacity: 1;
 	transform: translateY(0);
 }
+
+
+
+.research-title {
+    /* Text Styles */
+    font-family: 'Arial', sans-serif;
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+
+    /* 3D Text Effect */
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    /* Background Gradient */
+    background: linear-gradient(45deg, #c7d6e1, #d0eff3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.research-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.research-item {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.457);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.research-item:hover {
+    transform: scale(1.05);
+    
+	box-shadow: 0 0 30px rgb(72, 194, 235);
+}
+
+.research-description {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+
+
+
+
+
+
+.collabtitle {
+    /* Text Styles */
+    font-family: 'Arial', sans-serif;
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+
+    /* 3D Text Effect */
+    position: relative;
+    display: inline-block;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+    /* Background Gradient */
+    background: linear-gradient(45deg, #e0e8ee, #f0e1e0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+
+
+.collaboration-item {
+	opacity: 1;
+    margin-bottom: 10px;
+    border: 1px solid #3498db;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.collaboration-item:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.partner-name {
+    margin: 0;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.partner-name:hover {
+    color: #0066cc;
+}
+
+.partner-logo {
+	opacity: 1;
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add some spacing between the logo and partner name */
+}
+
