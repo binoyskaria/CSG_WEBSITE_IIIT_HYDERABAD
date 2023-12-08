@@ -9,7 +9,7 @@ body {
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 40px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -29,6 +29,7 @@ label {
 }
 
 input[type="text"],
+input[type="password"],
 input[type="file"],
 textarea,
 button {
@@ -91,3 +92,40 @@ input[type="file"]:focus {
 }
 
 /* Add more styling as needed for other form elements */
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Apply button styles to the label */
+.custom-file-input {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 12px;
+    
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+  }
+  
+  .custom-file-input:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Hide the actual file input */
+  #imageInput {
+    display: none;
+  }
+  
+  #facultyImageInput {
+    display: none;
+  }
+  

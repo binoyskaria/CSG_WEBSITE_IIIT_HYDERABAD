@@ -54,6 +54,9 @@ function uploadImage(formData) {
         .then(data => {
             console.log('Image uploaded successfully:', data);
 
+
+
+
             const filenameInput = document.getElementById('titleInput');
             filenameInput.value = data.imageUrl; // Use the uploaded filename for downloading
             alert('Image uploaded successfully!');
@@ -253,30 +256,60 @@ document.getElementById('addFocusSevenPublicationButton').addEventListener('clic
 async function submitLoginForm() {
     const username = document.getElementById('usernameInput').value;
     const password = document.getElementById('passwordInput').value;
-  
+
     try {
-      const response = await fetch('http://localhost:3000/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        // Store the token securely (e.g., in local storage)
-        localStorage.setItem('token', data.token);
-        console.log('Login successful');
-        window.location.href = './adminDashboard.html';
-      } else {
-        console.error('Login failed');
-        // Handle failed login (show error message, etc.)
-      }
+        const response = await fetch('http://localhost:3000/api/admin/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Store the token securely (e.g., in local storage)
+            localStorage.setItem('token', data.token);
+            console.log('Login successful');
+            window.location.href = './adminDashboard.html';
+        } else {
+            console.error('Login failed');
+            // Handle failed login (show error message, etc.)
+        }
     } catch (error) {
-      console.error('Error during login:', error);
-      // Handle error (show error message, etc.)
+        console.error('Error during login:', error);
+        // Handle error (show error message, etc.)
     }
-  }
-  
+}
+
+
+
+document.getElementById('imageInput').addEventListener('change', function () {
+    const fileInputLabel = document.querySelector('label[for="imageInput"]');
+    const fileInput = document.getElementById('imageInput');
+    if (fileInput.files.length > 0) {
+        // Image is selected
+        fileInputLabel.style.backgroundColor = 'green';
+        fileInputLabel.innerHTML = "Image Selected";
+    } else {
+        // No image selected, reset to default
+        fileInputLabel.style.backgroundColor = '#3498db';
+        fileInputLabel.innerHTML = "Image Selected";
+    }
+});
+
+
+document.getElementById('facultyImageInput').addEventListener('change', function () {
+    const fileInputLabel = document.querySelector('label[for="facultyImageInput"]');
+    const fileInput = document.getElementById('facultyImageInput');
+    if (fileInput.files.length > 0) {
+        // Image is selected
+        fileInputLabel.style.backgroundColor = 'green';
+        fileInputLabel.innerHTML = "Image Selected";
+    } else {
+        // No image selected, reset to default
+        fileInputLabel.style.backgroundColor = '#3498db';
+        fileInputLabel.innerHTML = "Image Selected";
+    }
+});
