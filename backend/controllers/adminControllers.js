@@ -2,9 +2,13 @@ const Image = require('../models/Image');
 const FacultyImage = require('../models/FacultyImage');
 const Publication = require('../models/Publication');
 const FocusSevenPublication = require('../models/FocusSevenPublication');
+const Admin = require('../models/Admin');
 const Project = require('../models/Project');
 const fs = require('fs').promises;
 const multer = require('multer');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 
 // Function to handle image upload
@@ -66,7 +70,7 @@ const handleImageUpload = async (req, res) => {
       res.json({
         message: 'Image uploaded successfully',
         imageUrl: savedImage.imageUrl,
-        title: savedImage.title, 
+        title: savedImage.title,
         description: savedImage.description,
       });
     });
@@ -137,7 +141,7 @@ const handleFacultyUpload = async (req, res) => {
       res.json({
         message: 'Image uploaded successfully',
         imageUrl: savedImage.imageUrl,
-        title: savedImage.title, 
+        title: savedImage.title,
         description: savedImage.description,
       });
     });
@@ -306,4 +310,40 @@ const handleAddProject = async (req, res) => {
   }
 };
 
-module.exports = { handleImageUpload,handleFacultyUpload, handleAddPublication, handleAddProject,handleAddFocusSevenPublication };
+
+
+const secretKey = process.env.JWT_SECRET
+
+const handleLogin = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    console.log('Received login request:', { username, password,hashedPassword });
+
+    // Fetch admin from the database based on the provided username
+    const admin = await Admin.findOne({ username });
+
+    console.log('Retrieved admin from the database:', admin);
+z
+    if (admin && bcrypt.compareSync(password, admin.password)) {
+      console.log('Password is correct. Generating JWT token.');
+
+      const token = jwt.sign("admin", secretKey);
+
+      console.log('JWT token generated:', token);
+
+      res.json({ token });
+    } else {
+      console.log('Authentication failed. Sending 401 status.');
+      res.sendStatus(401);
+    }
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+
+module.exports = { handleImageUpload, handleFacultyUpload, handleAddPublication, handleAddProject, handleAddFocusSevenPublication, handleLogin };

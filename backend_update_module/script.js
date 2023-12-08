@@ -1,3 +1,9 @@
+function getToken() {
+    return localStorage.getItem('token');
+}
+
+
+
 //addStudent
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 document.getElementById('imageUploadForm').addEventListener('submit', async function (e) {
@@ -38,6 +44,9 @@ function uploadImage(formData) {
 
     fetch('http://localhost:3000/api/admin/upload', {
         method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + getToken(),
+        },
         body: formData,
     })
         .then(response => response.json())
@@ -77,6 +86,7 @@ function addPublication(publicationData) {
     fetch('http://localhost:3000/api/admin/addPublication', {
         method: 'POST',
         headers: {
+            'Authorization': 'Bearer ' + getToken(),
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(publicationData),
@@ -103,6 +113,7 @@ function addProject(projectData) {
     fetch('http://localhost:3000/api/admin/addProject', {
         method: 'POST',
         headers: {
+            'Authorization': 'Bearer ' + getToken(),
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(projectData),
@@ -168,6 +179,7 @@ function uploadFacultyImage(formData) {
     console.log('Uploading faculty image...');
 
     fetch('http://localhost:3000/api/admin/facultyUpload', {
+        'Authorization': 'Bearer ' + getToken(),
         method: 'POST',
         body: formData,
     })
@@ -192,6 +204,7 @@ function addFocusSevenPublication(publicationData) {
     console.log('Adding or updating FocusSevenPublication...');
 
     fetch('http://localhost:3000/api/admin/addFocusSevenPublication', {
+        'Authorization': 'Bearer ' + getToken(),
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -228,3 +241,39 @@ document.getElementById('addFocusSevenPublicationButton').addEventListener('clic
 
     addFocusSevenPublication(publicationData);
 });
+
+
+
+
+//adminLogin
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+async function submitLoginForm() {
+    const username = document.getElementById('usernameInput').value;
+    const password = document.getElementById('passwordInput').value;
+  
+    try {
+      const response = await fetch('http://localhost:3000/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        // Store the token securely (e.g., in local storage)
+        localStorage.setItem('token', data.token);
+        console.log('Login successful');
+        window.location.href = './adminDashboard.html';
+      } else {
+        console.error('Login failed');
+        // Handle failed login (show error message, etc.)
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle error (show error message, etc.)
+    }
+  }
+  

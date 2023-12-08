@@ -5,9 +5,10 @@ const { isAdmin } = require('../middleware/authMiddleware'); // Assuming you hav
 const router = express.Router();
 
 // Import your controllers/handlers for image upload and publication add
-const { handleImageUpload,handleFacultyUpload, handleAddPublication,handleAddProject,handleAddFocusSevenPublication } = require('../controllers/adminControllers');
+const { handleImageUpload,handleFacultyUpload, handleAddPublication,handleAddProject,handleAddFocusSevenPublication,handleLogin } = require('../controllers/adminControllers');
 
 // Image upload route
+router.post('/login', handleLogin);
 router.post('/upload', isAdmin, handleImageUpload);
 
 router.post('/facultyUpload', isAdmin, handleFacultyUpload);

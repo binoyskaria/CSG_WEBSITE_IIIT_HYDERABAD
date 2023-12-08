@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const routes = require('./routes');
 const adminRoutes = require('./routes/adminRoutes');
+const bodyParser = require('body-parser');
 const { initializeImageServer, initializePublicationServer, initializeProjectServer, initializeFacultyServer, initializeFocusSevenPublicationServer } = require('./initServer');
 
 require('dotenv').config(); // Load environment variables from .env file
