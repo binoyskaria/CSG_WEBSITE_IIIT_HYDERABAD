@@ -254,13 +254,16 @@ const handleAddPublication = async (req, res) => {
       description: savedPublication.description,
     });
 
+    res.status(201).json({
+      message: 'Publication added successfully',
+      publication: savedPublication,
+    });
     
   } catch (error) {
     console.error('Error adding publication:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
 
 
 // Function to handle adding a new project
