@@ -312,7 +312,7 @@ const handleAddProject = async (req, res) => {
 
 
 
-const secretKey = process.env.JWT_SECRET
+
 
 const handleLogin = async (req, res) => {
   try {
@@ -324,10 +324,10 @@ const handleLogin = async (req, res) => {
     const admin = await Admin.findOne({ username });
 
     console.log('Retrieved admin from the database:', admin);
-z
+
     if (admin && bcrypt.compareSync(password, admin.password)) {
       console.log('Password is correct. Generating JWT token.');
-
+      const secretKey = process.env.JWT_SECRET
       const token = jwt.sign("admin", secretKey);
 
       console.log('JWT token generated:', token);

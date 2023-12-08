@@ -1,4 +1,5 @@
 function getToken() {
+    console.log("token is:    " + localStorage.getItem('token'));
     return localStorage.getItem('token');
 }
 
