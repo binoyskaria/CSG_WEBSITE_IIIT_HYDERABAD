@@ -8,9 +8,9 @@ const extractUserRoleFromToken = (authorizationHeader) => {
     console.log('Token:', token);
 
     const decoded = jwt.verify(token, secretKey);
-    
+    console.log('Decoded:', decoded);
     // Replace 'userRole' with the actual property that represents the user role in your JWT payload
-    const userRole = decoded.userRole;
+    const userRole = decoded;
 
     console.log('Decoded User Role:', userRole);
 
@@ -22,7 +22,8 @@ const extractUserRoleFromToken = (authorizationHeader) => {
 };
 
 const isAdmin = (req, res, next) => {
-  const authorizationHeader = req.headers.Authorization;
+  console.log('req:        ', req.headers);
+  const authorizationHeader = req.headers.authorization;
 
   console.log('Authorization Header:', authorizationHeader);
 
