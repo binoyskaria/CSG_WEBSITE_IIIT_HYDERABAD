@@ -207,11 +207,11 @@ function addFocusSevenPublication(publicationData) {
     console.log('Adding or updating FocusSevenPublication...');
 
     fetch('http://localhost:3000/api/admin/addFocusSevenPublication', {
-        'Authorization': 'Bearer ' + getToken(),
-        method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getToken(),
+            'Content-Type': 'application/json', // Combine headers
         },
+        method: 'POST',
         body: JSON.stringify(publicationData),
     })
         .then(response => {
@@ -235,9 +235,9 @@ document.getElementById('addFocusSevenPublicationButton').addEventListener('clic
 
     const publicationData = {
         title: document.getElementById('FocuspublicationTitleInput').value,
-        author: document.getElementById('publicationAuthorInput').value,
-        link: document.getElementById('publicationLinkInput').value,
-        index: document.getElementById('publicationIndexInput').value,
+        author: document.getElementById('FocuspublicationAuthorInput').value,
+        link: document.getElementById('FocuspublicationLinkInput').value,
+        index: document.getElementById('FocuspublicationIndexInput').value,
     };
 
     console.log('Publication data:', publicationData);

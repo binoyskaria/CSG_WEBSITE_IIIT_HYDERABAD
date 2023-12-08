@@ -150,61 +150,63 @@ const handleFacultyUpload = async (req, res) => {
 
 const handleAddFocusSevenPublication = async (req, res) => {
   try {
-    const { title, author, link, index } = req.body;
+      const { title, author, link, index } = req.body;
 
-    console.log('FocusSevenPublication details:', { title, author, link, index });
+      console.log('FocusSevenPublication details:', { title, author, link, index });
 
-    if (!title || !author || !link || !index) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
+      if (!title || !author || !link || !index) {
+          return res.status(400).json({ error: 'Missing required fields' });
+      }
 
-    // Find the publication with the given index in MongoDB
-    let existingPublication = await FocusSevenPublication.findOne({ index });
+      // Find the publication with the given index in MongoDB
+      let existingPublication = await FocusSevenPublication.findOne({ index });
 
-    if (!existingPublication) {
-      return res.status(400).json({ error: 'Publication not found for the given index' });
-    }
+      if (!existingPublication) {
+          return res.status(400).json({ error: 'Publication not found for the given index' });
+      }
 
-    // Update the existing publication in MongoDB
-    existingPublication.title = title;
-    existingPublication.author = author;
-    existingPublication.link = link;
+      // Update the existing publication in MongoDB
+      existingPublication.title = title;
+      existingPublication.author = author;
+      existingPublication.link = link;
 
-    // Save/update the publication in MongoDB
-    const savedPublication = await existingPublication.save();
+      // Save/update the publication in MongoDB
+      const savedPublication = await existingPublication.save();
 
-    console.log('FocusSevenPublication updated:', {
-      title: savedPublication.title,
-      author: savedPublication.author,
-      link: savedPublication.link,
-    });
+      console.log('FocusSevenPublication updated:', {
+          title: savedPublication.title,
+          author: savedPublication.author,
+          link: savedPublication.link,
+      });
 
-    // Update the CSV file
-    const publicationCsvPath = './data/focusSevenPublication.csv';
-    const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
-    const rows = csvData.split('\n');
+      // Update the CSV file
+      const publicationCsvPath = './data/focusSevenPublication.csv';
+      const csvData = await fs.readFile(publicationCsvPath, 'utf-8');
+      const rows = csvData.split('\n');
 
-    // Update the CSV row based on the provided index
-    if (index <= rows.length) {
-      rows[index] = `${savedPublication.index}#${savedPublication.title}#${savedPublication.author}#${savedPublication.link}`;
-      await fs.writeFile(publicationCsvPath, rows.join('\n'));
-    } else {
-      // Handle the case where the index is greater than the number of rows in CSV
-      return res.status(400).json({ error: 'Invalid index for updating CSV' });
-    }
+      // Update the CSV row based on the provided index
+      if (index <= rows.length) {
+          rows[index] = `${savedPublication.index}#${savedPublication.title}#${savedPublication.author}#${savedPublication.link}`;
+          await fs.writeFile(publicationCsvPath, rows.join('\n'));
+      } else {
+          // Handle the case where the index is greater than the number of rows in CSV
+          return res.status(400).json({ error: 'Invalid index for updating CSV' });
+      }
 
-    console.log('FocusSevenPublication data updated in CSV:', {
-      title: savedPublication.title,
-      date: savedPublication.date,
-      description: savedPublication.description,
-    });
+      console.log('FocusSevenPublication data updated in CSV:', {
+          title: savedPublication.title,
+          date: savedPublication.date,
+          description: savedPublication.description,
+      });
 
-    res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
+      res.json({ message: 'FocusSevenPublication added/updated successfully', publication: savedPublication });
   } catch (error) {
-    console.error('Error updating FocusSevenPublication:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error updating FocusSevenPublication:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
 
 
 
