@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Image Upload, Download, and Publication</title>
+    <title>CSG Admin - Add Data</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>Image Upload, Download, and Publication</h1>
+        
 
         <form id="imageUploadForm" class="form" enctype="multipart/form-data">
+            <h1>Add Student</h1>
             <label for="imageInput">Select Image:</label>
-            <input type="file" id="imageInput" accept="image/*">
+            <input type="file" id="imageInput" accept="image/*"><br><br>
 
             <label for="titleInput">Title:</label>
             <input type="text" id="titleInput">
@@ -24,13 +25,14 @@
             <label for="descriptionInput">Description:</label>
             <textarea id="descriptionInput"></textarea>
 
-            <button type="submit">Upload Image</button>
+            <button type="submit">Add Student</button>
         </form>
 
-
+        
         <form id="facultyImageUploadForm" class="form" enctype="multipart/form-data">
+            <h1>Add Faculty</h1>
             <label for="facultyImageInput">Select Faculty Image:</label>
-            <input type="file" id="facultyImageInput" accept="image/*">
+            <input type="file" id="facultyImageInput" accept="image/*"><br><br>
 
             <label for="facultyTitleInput">Title:</label>
             <input type="text" id="facultyTitleInput">
@@ -38,13 +40,15 @@
             <label for="facultyDescriptionInput">Description:</label>
             <textarea id="facultyDescriptionInput"></textarea>
 
-            <button type="submit">Upload Faculty Image</button>
+            <button type="submit">Add Faculty</button>
         </form>
 
 
 
-
+      
+        
         <form id="publicationDataForm" class="form">
+            <h1>Add Publication</h1>
             <label for="publicationTitleInput">Publication Title:</label>
             <input type="text" id="publicationTitleInput">
 
@@ -57,7 +61,10 @@
             <button type="button" id="addPublicationButton">Add Publication</button>
         </form>
 
+
+        
         <form id="projectDataForm" class="form">
+            <h1>Add Project</h1>
             <label for="projectTitleInput">Project Title:</label>
             <input type="text" id="projectTitleInput">
 
@@ -77,8 +84,9 @@
         </form>
 
 
-        <h1>Add/Update FocusSevenPublication</h1>
-        <form id="focusSevenForm">
+        
+        <form id="focusSevenForm" class="form">
+            <h1>Update FocusSevenPublication</h1>
             <label for="FocuspublicationTitleInput">Title:</label>
             <input type="text" id="FocuspublicationTitleInput" name="title" required><br>
 
@@ -89,7 +97,7 @@
             <input type="text" id="FocuspublicationLinkInput" name="link" required><br>
 
             <label for="FocuspublicationIndexInput">Index:</label>
-            <input type="number" id="FocuspublicationIndexInput" name="index" required><br>
+            <input type="number" id="FocuspublicationIndexInput" name="index" required><br><br>
 
             <button type="button" id="addFocusSevenPublicationButton">Submit</button>
         </form>
