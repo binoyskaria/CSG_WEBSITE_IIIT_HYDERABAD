@@ -212,55 +212,6 @@ const handleAddFocusSevenPublication = async (req, res) => {
 
 
 
-const handleAddPublication = async (req, res) => {
-  try {
-    const { title, date, description } = req.body;
-
-    console.log('Publication details:', {
-      title: title,
-      date: date,
-      description: description,
-    });
-
-    if (!title || !date || !description) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    const newPublication = new Publication({
-      title,
-      date,
-      description,
-    });
-
-    console.log('New Publication Object:', newPublication);
-
-    const savedPublication = await newPublication.save();
-
-    // Append new publication data to publication.csv
-    const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
-    const publicationCsvRow = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}\n`;
-
-    await fs.appendFile(publicationCsvPath, publicationCsvRow);
-
-    console.log('Publication data appended to CSV:', {
-      title: savedPublication.title,
-      date: savedPublication.date,
-      description: savedPublication.description,
-    });
-
-    await sortCsvByDateDescending();
-    await initializePublicationServer();
-    res.status(201).json({
-      message: 'Publication added successfully',
-      publication: savedPublication,
-    });
-    
-  } catch (error) {
-    console.error('Error adding publication:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
-
 
 
 
@@ -349,6 +300,61 @@ const handleLogin = async (req, res) => {
   }
 };
 
+
+
+
+
+const handleAddPublication = async (req, res) => {
+  try {
+    const { title, date, description } = req.body;
+
+    console.log('Publication details:', {
+      title: title,
+      date: date,
+      description: description,
+    });
+
+    if (!title || !date || !description) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const newPublication = new Publication({
+      title,
+      date,
+      description,
+    });
+
+    console.log('New Publication Object:', newPublication);
+
+    const savedPublication = await newPublication.save();
+
+    // Append new publication data to publication.csv
+    const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
+    const publicationCsvRow = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}\n`;
+
+    await fs.appendFile(publicationCsvPath, publicationCsvRow);
+
+    console.log('Publication data appended to CSV:', {
+      title: savedPublication.title,
+      date: savedPublication.date,
+      description: savedPublication.description,
+    });
+
+    await sortCsvByDateDescending();
+    await initializePublicationServer();
+    res.status(201).json({
+      message: 'Publication added successfully',
+      publication: savedPublication,
+    });
+
+  } catch (error) {
+    console.error('Error adding publication:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
 const sortCsvByDateDescending = async () => {
   const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
 
@@ -362,12 +368,26 @@ const sortCsvByDateDescending = async () => {
       .split('\n')
       .map((row) => row.split('#'));
 
+    // Log parsed rows and dates before sorting
+    console.log("Parsed Rows and Dates Before Sorting: ");
+    rows.forEach(row => {
+      console.log(row[1]); // Log the date column for each row
+    });
+
     // Sort the rows based on the second column (date) in descending order
     const sortedRows = rows.sort((a, b) => new Date(b[1]) - new Date(a[1]));
 
-    // Join the sorted rows back into a CSV-formatted string
-    const sortedCsvData = sortedRows.map((row) => row.join('#')).join('\n')+ '\n';
+    // Log sorted dates after sorting
+    console.log("Sorted Dates After Sorting: ");
+    sortedRows.forEach(row => {
+      console.log(row[1]); // Log the date column for each sorted row
+    });
 
+
+    // Join the sorted rows back into a CSV-formatted string
+    const sortedCsvData = sortedRows.map((row) => row.join('#')).join('\n') + '\n';
+    // console.log("sorted CSV is ////////////////////////////////////////////////  \n" + sortedCsvData);
+    // console.log("////////////////////////////////////////////////////////////////////////  \n");
     // Overwrite the existing CSV file with the sorted data
     await fs.writeFile(publicationCsvPath, sortedCsvData, 'utf-8');
 
