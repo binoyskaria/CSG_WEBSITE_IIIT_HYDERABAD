@@ -50,7 +50,12 @@ function uploadImage(formData) {
         },
         body: formData,
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Image uploaded successfully:', data);
 
@@ -95,15 +100,20 @@ function addPublication(publicationData) {
         },
         body: JSON.stringify(publicationData),
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Publication added successfully:', data);
             // You can update the timeline or perform other actions as needed
             alert('Publication added successfully!');
         })
         .catch(error => {
-            console.error('Error adding publication:', error);
-            alert('Failed to add publication. Please try again.');
+            console.error('Error adding publication:', error.message);
+            alert('Failed to add publication. Please try again. Error: ' + error.message);
         });
 }
 
@@ -122,14 +132,19 @@ function addProject(projectData) {
         },
         body: JSON.stringify(projectData),
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Project added successfully:', data);
             // You can update the UI or perform other actions as needed
             alert('Project added successfully!');
         })
         .catch(error => {
-            console.error('Error adding project:', error);
+            console.error('Error adding project:', error.message);
             alert('Failed to add project. Please try again.');
         });
 }
@@ -189,7 +204,12 @@ function uploadFacultyImage(formData) {
         method: 'POST',
         body: formData,
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Faculty Image uploaded successfully:', data);
 
@@ -218,7 +238,9 @@ function addFocusSevenPublication(publicationData) {
         body: JSON.stringify(publicationData),
     })
         .then(response => {
-            console.log('Response from server:', response);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             return response.json();
         })
         .then(data => {
@@ -312,4 +334,21 @@ document.getElementById('facultyImageInput').addEventListener('change', function
         fileInputLabel.style.backgroundColor = '#3498db';
         fileInputLabel.innerHTML = "Image Selected";
     }
+});
+
+
+
+// Logout function
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function logout() {
+    // Remove the token from local storage
+    localStorage.removeItem('token');
+
+    // Redirect to the login page
+    window.location.href = './login.html'; // Replace with the actual path to your login page
+}
+
+// Add an event listener to the logout button or link
+document.getElementById('logoutButton').addEventListener('click', function () {
+    logout();
 });

@@ -265,54 +265,6 @@ const handleAddPublication = async (req, res) => {
 
 
 
-// Function to handle adding a new publication
-// const handleAddPublication = async (req, res) => {
-//   try {
-//     const { title, date, description } = req.body;
-
-//     console.log('Publication details:', {
-//       title: title,
-//       date: date,
-//       description: description,
-//     });
-
-//     if (!title || !date || !description) {
-//       return res.status(400).json({ error: 'Missing required fields' });
-//     }
-
-//     const newPublication = new Publication({
-//       title,
-//       date,
-//       description,
-//     });
-
-//     console.log('New Publication Object:', newPublication);
-
-//     const savedPublication = await newPublication.save();
-
-//     // Append new publication data to publication.csv
-//     const publicationCsvPath = path.join(__dirname, '../data', 'publication.csv');
-//     const publicationCsvRow = `${savedPublication.title}#${savedPublication.date}#${savedPublication.description}\n`;
-
-//     await fs.appendFile(publicationCsvPath, publicationCsvRow);
-
-//     console.log('Publication data appended to CSV:', {
-//       title: savedPublication.title,
-//       date: savedPublication.date,
-//       description: savedPublication.description,
-//     });
-
-//     res.status(201).json({
-//       message: 'Publication added successfully',
-//       publication: savedPublication,
-//     });
-    
-//   } catch (error) {
-//     console.error('Error adding publication:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// };
-
 
 // Function to handle adding a new project
 const handleAddProject = async (req, res) => {
