@@ -186,31 +186,67 @@
 
 
 
-let currentIndex = 0; // Track the current index in the list of image URLs
-const imageUrls = [
-	"adhish.jpg",
 
-	"shrenik.jpg",
-	"vinamra.jpg",
-	"yash.jpg",
-    "ziaul.jpg",
-	"manish.jpg",
-	"karthik.jpg",
-	"vishalburri.jpg",
-	"sukumar.jpg",
-	"srivatsava.jpg",
 
-	"akshaj.jpg",
-	"amal.jpg",
-
-	"praneeth.jpg",
-	"khandelwal.jpg",
-	"macharla.jpg",
-	"pratik.jpg",
-    "anish.jpg",
-	"kunal.jpg",
-    "geetika.jpg",
-
-    // Add more image URLs as needed
-];
-
+// Function to fetch data from the API
+async function fetchDataFromAPI() {
+	try {
+	  console.log('Fetching data from the API...');
+	  const response = await fetch('http://localhost:3000/api/images/download/all'); // Update the URL based on your actual API endpoint
+	  console.log('API response received:', response);
+  
+	  const data = await response.json();
+	  console.log('Data from the API:', data);
+  
+	  return data;
+	} catch (error) {
+	  console.error('Error fetching data from the API:', error);
+	  throw error;
+	}
+  }
+  
+  // Function to create and append articles to the DOM
+  function appendArticlesToDOM(articles) {
+	console.log('Appending articles to the DOM...');
+	const tilesSection = document.querySelector('.tiles');
+	let currentStyleIndex = 0;
+  
+	articles.forEach((article) => {
+	  const articleElement = document.createElement('article');
+	  articleElement.classList.add(`style${currentStyleIndex + 1}`);
+  
+	  articleElement.innerHTML = `
+		<span class="image">
+		  <img src="data:image/jpeg;base64,${article.imageData}" alt="${article.title}" />
+		</span>
+		<a href="javascript:void(0);">
+		  <h2>${article.title}</h2>
+		  <div class="content">
+			<p>${article.description}</p>
+		  </div>
+		</a>
+	  `;
+  
+	  tilesSection.appendChild(articleElement);
+	  currentStyleIndex = (currentStyleIndex + 1) % 6;
+	});
+  
+	console.log('Articles appended to the DOM.');
+  }
+  
+  async function fetchDataAndPopulateArticles() {
+	try {
+	  console.log('Fetching data and populating articles...');
+	  const data = await fetchDataFromAPI();
+	  console.log('Data received:', data);
+  
+	  appendArticlesToDOM(data);
+	} catch (error) {
+	  // Handle errors as needed
+	  console.error('Error fetching data and populating articles:', error);
+	}
+  }
+  
+  // Trigger the data fetching and population process
+  fetchDataAndPopulateArticles();
+  
