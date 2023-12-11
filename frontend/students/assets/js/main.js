@@ -214,35 +214,3 @@ const imageUrls = [
     // Add more image URLs as needed
 ];
 
-// Define the downloadImage function
-async function downloadImage(filename) {
-    try {
-        const response = await fetch(`http://localhost:3000/api/download/${filename}`, {
-            method: 'GET',
-        });
-
-        const blob = await response.blob();
-        return window.URL.createObjectURL(blob);
-    } catch (error) {
-        console.error('Error downloading image:', error);
-        return null;
-    }
-}
-
-// Update image URLs and populate HTML page when the page loads
-window.onload = async () => {
-    for (let i = 0; i < imageUrls.length; i++) {
-        const imageUrl = await downloadImage(imageUrls[i]);
-        if (imageUrl) {
-            imageUrls[i] = imageUrl;
-            updateImageInHTML(i, imageUrl);
-        }
-    }
-};
-
-// Function to update the image in the HTML page
-function updateImageInHTML(index, imageUrl) {
-    const articles = document.querySelectorAll('.tiles article');
-    const imageElement = articles[index].querySelector('.image img');
-    imageElement.src = imageUrl;
-}
