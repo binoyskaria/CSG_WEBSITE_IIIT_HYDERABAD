@@ -4,7 +4,6 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-
 $(document).ready(function () {
 
 	// Add 'is-loading' class to the body when the page starts loading
@@ -272,7 +271,7 @@ function performGoogleSearch(clickedElement) {
 
 async function fetchFocusSevenPublications() {
 	try {
-		const response = await fetch('http://localhost:3000/api/publications/getFocusSevenPublications');
+		const response = await fetch(apiUrl+'/api/publications/getFocusSevenPublications');
 		const data = await response.json();
 		return data.publications;
 	} catch (error) {

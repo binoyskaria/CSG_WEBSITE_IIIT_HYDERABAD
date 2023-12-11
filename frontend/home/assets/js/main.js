@@ -4,6 +4,10 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+
+
+
+
 (function ($) {
 
 	var $window = $(window),
@@ -262,7 +266,9 @@
 
 async function fetchFacultyData() {
 	try {
-		const response = await fetch('http://localhost:3000/api/faculty/download/allFaculty');
+		
+		const response = await fetch(apiUrl+'/api/faculty/download/allFaculty');
+		
 		const facultyData = await response.json();
 
 		// Map fetched data to imageUrls and imageInfos

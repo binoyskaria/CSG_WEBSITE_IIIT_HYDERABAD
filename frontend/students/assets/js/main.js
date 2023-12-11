@@ -192,7 +192,7 @@
 async function fetchDataFromAPI() {
 	try {
 	  console.log('Fetching data from the API...');
-	  const response = await fetch('http://localhost:3000/api/images/download/all'); // Update the URL based on your actual API endpoint
+	  const response = await fetch(apiUrl+'/api/images/download/all'); // Update the URL based on your actual API endpoint
 	  console.log('API response received:', response);
   
 	  const data = await response.json();

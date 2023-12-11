@@ -4,6 +4,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+
 (function ($) {
 
 	var $window = $(window),
@@ -151,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     async function populateContent() {
         try {
             // Make an AJAX request to your getProjects API
-            const response = await fetch('http://localhost:3000/api/projects/getProjects'); // Update the URL as needed
+            const response = await fetch(apiUrl+'/api/projects/getProjects'); // Update the URL as needed
             const data = await response.json();
 
             // Log the received data for debugging
