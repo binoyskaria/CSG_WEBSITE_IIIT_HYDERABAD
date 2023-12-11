@@ -12,7 +12,7 @@ const app = express();
 // Middleware to log every request
 
 const PORT = process.env.PORT || 3000;
-
+console.log("connecting to" +process.env.MONGODB_URI );
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
