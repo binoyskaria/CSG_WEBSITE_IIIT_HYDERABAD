@@ -7,7 +7,7 @@ const router = express.Router();
 // Route to get all publications
 router.get('/getPublications', async (req, res) => {
   try {
-    console.log('Fetching publications...');
+    console.log('Fetching publications...'); 
 
     const publications = await Publication.find();
 
