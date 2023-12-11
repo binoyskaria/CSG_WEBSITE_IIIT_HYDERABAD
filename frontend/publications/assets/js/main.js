@@ -1,3 +1,42 @@
+
+$(document).ready(function () {
+
+	// Add 'is-loading' class to the body when the page starts loading
+    $('body').addClass('is-loading');
+
+    // Function to remove 'is-loading' class after a short delay
+    function removeLoadingClass() {
+        $('body').removeClass('is-loading');
+    }
+
+    // Call removeLoadingClass after a short delay (e.g., 100 milliseconds)
+    setTimeout(removeLoadingClass, 100);
+    var header = $('#header');
+    var timeout;
+
+    $(document).mousemove(function (e) {
+        var y = e.clientY;
+
+        if (y > window.innerHeight - 100) {
+            header.addClass('active');
+            clearTimeout(timeout);
+
+            // Hide the navbar after 2 seconds of inactivity
+            timeout = setTimeout(function () {
+                header.removeClass('active');
+            }, 2000);
+        }
+    });
+
+
+
+
+
+	
+});
+
+
+
 // Vertical Timeline - by CodyHouse.co
 function VerticalTimeline(element) {
     this.element = element;
