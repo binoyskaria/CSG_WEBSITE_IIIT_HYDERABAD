@@ -267,7 +267,7 @@
 async function fetchFacultyData() {
 	try {
 	  console.log('Fetching data...');
-	  const response = await fetch(apiUrl+'/api/projects/getProjects', {
+	  const response = await fetch(apiUrl+'/api/faculty/download/allFaculty', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
