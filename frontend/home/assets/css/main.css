@@ -4388,8 +4388,9 @@ input, select, textarea {
 
 .info .description {
 	color: #ffffff !important;
-  --text-size-offset: 0.08;
-  font-weight: 500;
+	font-size: large;
+  /* --text-size-offset: 0.08; */
+  /* font-weight: 500; */
 }
 
 .info.current--info {

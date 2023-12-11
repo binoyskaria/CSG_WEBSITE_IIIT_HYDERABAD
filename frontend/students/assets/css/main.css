@@ -2686,11 +2686,13 @@ input, select, textarea {
 				}
 
 				.tiles article > a h2 {
-					padding-top: 50%
-					;
+					
 					margin: 0;
+					transition: padding-bottom 0.4s ease;
 				}
-
+				.tiles article > a:hover h2 {
+					padding-bottom: 50%; /* You can adjust the padding value as per your requirement */
+				}
 				.tiles article > a .content {
 					-moz-transition: max-height 0.5s ease, opacity 0.5s ease;
 					-webkit-transition: max-height 0.5s ease, opacity 0.5s ease;
@@ -2701,6 +2703,11 @@ input, select, textarea {
 					line-height: 1.5;
 					margin-top: 0.35em;
 					opacity: 0;
+					transition: padding-top 0.4s ease;
+					font-weight: bold;
+				}
+				.tiles article > a:hover .content {
+					padding-top: 40%; /* You can adjust the padding value as per your requirement */
 				}
 
 					.tiles article > a .content > :last-child {
