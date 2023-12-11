@@ -1,3 +1,3 @@
 // config.js
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'https://malamute-devoted-fully.ngrok-free.app';
 

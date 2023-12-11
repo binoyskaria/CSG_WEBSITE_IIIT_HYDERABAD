@@ -271,7 +271,15 @@ function performGoogleSearch(clickedElement) {
 
 async function fetchFocusSevenPublications() {
 	try {
-		const response = await fetch(apiUrl+'/api/publications/getFocusSevenPublications');
+		const response = await fetch(apiUrl+'/api/publications/getFocusSevenPublications', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 1
+				// Add any other headers as needed
+			},
+			// credentials: 'include', // Uncomment this line if you need to include credentials (cookies, etc.)
+		});
 		const data = await response.json();
 		return data.publications;
 	} catch (error) {

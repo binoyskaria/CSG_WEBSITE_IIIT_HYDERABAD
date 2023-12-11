@@ -148,42 +148,58 @@
 
 
 document.addEventListener('DOMContentLoaded', async function () {
-    // Function to make AJAX request and populate content
-    async function populateContent() {
-        try {
-            // Make an AJAX request to your getProjects API
-            const response = await fetch(apiUrl+'/api/projects/getProjects'); // Update the URL as needed
-            const data = await response.json();
 
-            // Log the received data for debugging
-            console.log('Received data:', data);
 
-            // Assuming the response has a 'projects' property containing an array of projects
-            const projects = data.projects;
 
-            // Log the number of projects for debugging
-            console.log('Number of projects:', projects.length);
 
-            // Reference to the wrapper element
-            const wrapper = document.getElementById('wrapper');
 
-            // Iterate through projects and dynamically create HTML content
-            projects.forEach((project, index) => {
-    console.log('Processing project:', project);
 
-    const section = document.createElement('section');
 
-    // Add common classes to all sections
-    section.classList.add('wrapper', 'style2');
 
-    // Add additional classes based on even or odd index
-    if (index % 2 === 0) {
-        section.classList.add('alt', 'spotlight');
-    } else {
-        section.classList.add('spotlight');
-    }
+	// Function to make AJAX request and populate content
+	async function populateContent() {
+		try {
+			// Make an AJAX request to your getProjects API
+			const response = await fetch(apiUrl + '/api/projects/getProjects', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'ngrok-skip-browser-warning': 1
+					// Add any other headers as needed
+				},
+				// credentials: 'include', // Uncomment this line if you need to include credentials (cookies, etc.)
+			});
+			const data = await response.json();
 
-    section.innerHTML = `
+			// Log the received data for debugging
+			console.log('Received data:', data);
+
+			// Assuming the response has a 'projects' property containing an array of projects
+			const projects = data.projects;
+
+			// Log the number of projects for debugging
+			console.log('Number of projects:', projects.length);
+
+			// Reference to the wrapper element
+			const wrapper = document.getElementById('wrapper');
+
+			// Iterate through projects and dynamically create HTML content
+			projects.forEach((project, index) => {
+				console.log('Processing project:', project);
+
+				const section = document.createElement('section');
+
+				// Add common classes to all sections
+				section.classList.add('wrapper', 'style2');
+
+				// Add additional classes based on even or odd index
+				if (index % 2 === 0) {
+					section.classList.add('alt', 'spotlight');
+				} else {
+					section.classList.add('spotlight');
+				}
+
+				section.innerHTML = `
     <div class="inner">
         <div class="content">
             <h2 class="major">${project.title}</h2>
@@ -203,18 +219,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         </div>
     </div>`;
 
-    // Log the created section for debugging
-    console.log('Created section:', section);
+				// Log the created section for debugging
+				console.log('Created section:', section);
 
-    wrapper.appendChild(section);
-});
+				wrapper.appendChild(section);
+			});
 
-        } catch (error) {
-            console.error('Error fetching projects:', error);
-            // Handle errors as needed
-        }
-    }
+		} catch (error) {
+			console.error('Error fetching projects:', error);
+			// Handle errors as needed
+		}
+	}
 
-    // Call the function to populate content when the DOM is loaded
-    populateContent();
+	// Call the function to populate content when the DOM is loaded
+	populateContent();
 });

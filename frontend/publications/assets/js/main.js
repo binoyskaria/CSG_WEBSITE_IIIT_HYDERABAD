@@ -111,7 +111,15 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log('DOM content loaded. Fetching data from the server...');
 
     // Fetch data from the server
-    fetch(apiUrl+'/api/publications/getPublications')
+    fetch(apiUrl+'/api/publications/getPublications', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': 1
+            // Add any other headers as needed
+        },
+        // credentials: 'include', // Uncomment this line if you need to include credentials (cookies, etc.)
+    })
         .then(response => {
             console.log('Response received:', response);
             return response.json();

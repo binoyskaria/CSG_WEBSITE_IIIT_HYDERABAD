@@ -266,30 +266,46 @@
 
 async function fetchFacultyData() {
 	try {
-		
-		const response = await fetch(apiUrl+'/api/faculty/download/allFaculty');
-		
-		const facultyData = await response.json();
-
-		// Map fetched data to imageUrls and imageInfos
-		imageUrls.length = 0;
-		imageInfos.length = 0;
-
-		facultyData.forEach((data) => {
-			imageUrls.push(`data:image/png;base64, ${data.imageData}`);
-			imageInfos.push({
-				name: data.title,
-				description: data.description,
-			});
+	  console.log('Fetching data...');
+	  const response = await fetch(apiUrl+'/api/projects/getProjects', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+		'ngrok-skip-browser-warning':1
+        // Add any other headers as needed
+      },
+      // credentials: 'include', // Uncomment this line if you need to include credentials (cookies, etc.)
+    });
+	
+	  const facultyData = await response.json();
+  
+	  console.log('Fetched faculty data:', facultyData);
+  
+	  // Map fetched data to imageUrls and imageInfos
+	  imageUrls.length = 0;
+	  imageInfos.length = 0;
+  
+	  facultyData.forEach((data) => {
+		imageUrls.push(`data:image/png;base64, ${data.imageData}`);
+		imageInfos.push({
+		  name: data.title,
+		  description: data.description,
 		});
-
-		// Initial card setup
-
+	  });
+  
+	  console.log('Mapped imageUrls:', imageUrls);
+	  console.log('Mapped imageInfos:', imageInfos);
+  
+	  // Additional steps can be added here
+  
+	  console.log('Data fetching and processing completed successfully.');
+  
+	  // Initial card setup
+  
 	} catch (error) {
-		console.error('Error fetching faculty data:', error);
+	  console.error('Error fetching faculty data:', error);
 	}
-}
-
+  }
 
 
 const imageUrls = [

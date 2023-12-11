@@ -26,12 +26,19 @@ function createStudent(name, degree, imgSrc) {
 
 // Function to fetch student data from API and create student elements
 async function fetchAndCreateStudents() {
-  const apiEndpoint = 'http://localhost:3000/api/images/download/all';
 
   try {
-    console.log('Fetching data from:', apiEndpoint);
+    
 
-    const response = await fetch(apiEndpoint);
+    const response = await fetch(apiUrl + '/api/images/download/all', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 1
+				// Add any other headers as needed
+			},
+			// credentials: 'include', // Uncomment this line if you need to include credentials (cookies, etc.)
+		}); // Update the URL based on your actual API endpoint
     console.log('Received response:', response);
 
     const studentsData = await response.json();
