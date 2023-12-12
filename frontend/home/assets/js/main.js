@@ -5,6 +5,31 @@
 */
 
 
+const cardsContainer = document.getElementById("your-cards-container");
+let touchStartX = 0;
+let touchEndX = 0;
+
+cardsContainer.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+
+cardsContainer.addEventListener("touchmove", (e) => {
+  touchEndX = e.touches[0].clientX;
+});
+
+cardsContainer.addEventListener("touchend", () => {
+  const swipeDistance = touchEndX - touchStartX;
+
+  if (swipeDistance > 50) {
+    // Swipe right
+    swapCards("right");
+  } else if (swipeDistance < -50) {
+    // Swipe left
+    swapCards("left");
+  }
+});
+
+
 
 
 
