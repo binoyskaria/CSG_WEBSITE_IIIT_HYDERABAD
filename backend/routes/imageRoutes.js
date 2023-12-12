@@ -22,12 +22,12 @@ router.get('/download/all', async (req, res) => {
       images.map(async (image) => {
         const imagePath = path.join(__dirname, '../uploads/students/', image.imageUrl);
 
-        console.log(`Reading image data for ${image.imageUrl}...`);
+        // console.log(`Reading image data for ${image.imageUrl}...`);
 
         // Read image data as base64
         const imageData = await fs.promises.readFile(imagePath, { encoding: 'base64' });
 
-        console.log(`Image data read successfully for ${image.imageUrl}.`);
+        // console.log(`Image data read successfully for ${image.imageUrl}.`);
 
         return {
           imageUrl: image.imageUrl,
