@@ -43,8 +43,8 @@ initializeFacultyServer();
 initializeFocusSevenPublicationServer();
 
 // Define a route that returns the specified string in a text file
-app.get('/loaderio-3032b85b45eec7de7212b51aff606f58.txt', (req, res) => {
-  const content = 'loaderio-3032b85b45eec7de7212b51aff606f58';
+app.get('/loaderio-65f22977a8881775a9acd791f3ff05b1.txt', (req, res) => {
+  const content = 'loaderio-65f22977a8881775a9acd791f3ff05b1';
 
   // Set the response headers
   res.setHeader('Content-Type', 'text/plain');
