@@ -61,6 +61,7 @@ app.get('/loaderio-3032b85b45eec7de7212b51aff606f58.txt', (req, res) => {
 app.use('/api', routes);
 app.use('/api/admin', adminRoutes);
 
-app.listen(PORT, () => {
+const IP_ADDRESS = '0.0.0.0';
+app.listen(PORT, IP_ADDRESS,() => {
   console.log(`Server is running on port ${PORT}`);
 });
