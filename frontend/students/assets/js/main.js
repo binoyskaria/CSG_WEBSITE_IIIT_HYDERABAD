@@ -552,6 +552,8 @@ function hideLoadingSpinner() {
 	
 	const fullSection = document.getElementById("full");
 	if (fullSection) {
+		const wrapsection = document.getElementById("wrap");
+		wrapsection.remove();
 		fullSection.remove();
 	}
 }
