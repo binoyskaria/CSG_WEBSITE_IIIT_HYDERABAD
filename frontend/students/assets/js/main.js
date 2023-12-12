@@ -408,7 +408,7 @@ function removeloading() {
 	const wrapSection = document.getElementById("wrap");
 	if (fullSection) {
 
-		wrapSection.remove()
+		wrapSection.remove();
 		fullSection.remove();
 		
 	}
