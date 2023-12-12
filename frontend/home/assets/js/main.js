@@ -22,10 +22,10 @@ cardsContainer.addEventListener("touchend", () => {
 
   if (swipeDistance > 50) {
     // Swipe right
-    swapCards("right");
+    swapCards("left");
   } else if (swipeDistance < -50) {
     // Swipe left
-    swapCards("left");
+    swapCards("right");
   }
 });
 
