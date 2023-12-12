@@ -543,7 +543,7 @@ function doloading() {
 // Function to show a loading spinner
 function showLoadingSpinner() {
 	
-	doloading();
+	// doloading();
 }
 
 // Function to hide the loading spinner
