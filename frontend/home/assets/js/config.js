@@ -1,3 +1,3 @@
 // config.js
-const apiUrl = 'https://malamute-devoted-fully.ngrok-free.app';
+const apiUrl = 'https://5csglab-production.up.railway.app';
 
