@@ -4,7 +4,7 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-function doloading(){
+function doloading() {
 	var $body = document.body,
 		$wrap = document.getElementById('wrap'),
 
@@ -403,24 +403,26 @@ function doloading(){
 // fetchDataAndPopulateArticles();
 
 
+function removeloading() {
+	const fullSection = document.getElementById("full");
+	if (fullSection) {
 
+
+		fullSection.remove();
+	}
+}
 
 // Function to show a loading spinner
 function showLoadingSpinner() {
 
-	 doloading();
+	doloading();
 }
 
 // Function to hide the loading spinner
 function hideLoadingSpinner() {
 
+	removeloading();
 
-	const fullSection = document.getElementById("full");
-	if (fullSection) {
-		
-		
-		fullSection.remove();
-	}
 }
 
 // Function to fetch data from the API
