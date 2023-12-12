@@ -401,6 +401,9 @@ function doloading() {
 
 // // Trigger the data fetching and population process
 // fetchDataAndPopulateArticles();
+document.addEventListener("DOMContentLoaded", function() {
+    removeloading();
+});
 
 
 function removeloading() {
@@ -423,7 +426,7 @@ function showLoadingSpinner() {
 // Function to hide the loading spinner
 function hideLoadingSpinner() {
 
-	removeloading();
+	// removeloading();
 
 }
 
