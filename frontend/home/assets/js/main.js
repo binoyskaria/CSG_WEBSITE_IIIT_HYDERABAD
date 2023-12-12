@@ -385,7 +385,12 @@ const cardsContainerEl = document.querySelector(".cards__wrapper");
 const appBgContainerEl = document.querySelector(".app__bg");
 
 const cardInfosContainerEl = document.querySelector(".info__wrapper");
-currentIndex = 1;
+if(imageUrls.length == 3){
+	currentIndex = 1;
+}else{
+	currentIndex = 2;
+}
+
 console.log('currentIndex most outside:', currentIndex);
 buttons.next.addEventListener("click", () => swapCards("right"));
 
