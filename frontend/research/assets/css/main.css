@@ -1594,7 +1594,7 @@ body.is-touch .poptrox-popup .nav-previous {
 	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 22.5%;
+	width: 30%;
 	background: #000;
 	border-radius: 15px;
 	box-shadow: 0 0 .15em 0 rgba(0, 0, 0, .1);

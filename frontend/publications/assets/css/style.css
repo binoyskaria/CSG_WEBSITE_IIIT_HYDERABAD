@@ -4060,13 +4060,13 @@ mark {
 #header.active{
     opacity: 1
 }
-#header {
+#header {margin-bottom: 2%;
 	position: fixed;
 	z-index: 10000;
 	bottom: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 21%;
+	width: 28%;
 	background: #000;
 	border-radius: 15px;
 	box-shadow: 0 0 .15em 0 rgba(0, 0, 0, .1);
