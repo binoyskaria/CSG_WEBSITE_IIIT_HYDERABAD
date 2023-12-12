@@ -1,3 +1,6 @@
+const apiUrl = 'https://csg-lab-dev-hhsj.1.sg-1.fl0.io';
+
+
 function getToken() {
     console.log("token is:    " + localStorage.getItem('token'));
     return localStorage.getItem('token');
@@ -43,7 +46,7 @@ document.getElementById('imageUploadForm').addEventListener('submit', async func
 function uploadImage(formData) {
     console.log('Uploading image...');
 
-    fetch('http://localhost:3000/api/admin/upload', {
+    fetch(apiUrl+'/api/admin/upload', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getToken(),
@@ -92,7 +95,7 @@ document.getElementById('addPublicationButton').addEventListener('click', functi
 function addPublication(publicationData) {
     console.log('Adding publication...');
 
-    fetch('http://localhost:3000/api/admin/addPublication', {
+    fetch(apiUrl+'/api/admin/addPublication', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getToken(),
@@ -124,7 +127,7 @@ function addPublication(publicationData) {
 function addProject(projectData) {
     console.log('Adding project...');
 
-    fetch('http://localhost:3000/api/admin/addProject', {
+    fetch(apiUrl+'/api/admin/addProject', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + getToken(),
@@ -197,7 +200,7 @@ document.getElementById('facultyImageUploadForm').addEventListener('submit', asy
 function uploadFacultyImage(formData) {
     console.log('Uploading faculty image...');
 
-    fetch('http://localhost:3000/api/admin/facultyUpload', {
+    fetch(apiUrl+'/api/admin/facultyUpload', {
         headers: {
             'Authorization': 'Bearer ' + getToken(),
         },
@@ -229,7 +232,7 @@ function uploadFacultyImage(formData) {
 function addFocusSevenPublication(publicationData) {
     console.log('Adding or updating FocusSevenPublication...');
 
-    fetch('http://localhost:3000/api/admin/addFocusSevenPublication', {
+    fetch(apiUrl+'/api/admin/addFocusSevenPublication', {
         headers: {
             'Authorization': 'Bearer ' + getToken(),
             'Content-Type': 'application/json', // Combine headers
@@ -280,7 +283,7 @@ async function submitLoginForm() {
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const response = await fetch('http://localhost:3000/api/admin/login', {
+        const response = await fetch(apiUrl+'/api/admin/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
