@@ -550,12 +550,12 @@ function showLoadingSpinner() {
 function hideLoadingSpinner() {
 	
 	
-	const fullSection = document.getElementById("full");
-	if (fullSection) {
-		const wrapsection = document.getElementById("wrap");
-		wrapsection.remove();
-		fullSection.remove();
-	}
+	// const fullSection = document.getElementById("full");
+	// if (fullSection) {
+	// 	const wrapsection = document.getElementById("wrap");
+	// 	wrapsection.remove();
+	// 	fullSection.remove();
+	// }
 }
 
 // Function to fetch data from the API
