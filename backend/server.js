@@ -42,6 +42,20 @@ initializeProjectServer();
 initializeFacultyServer();
 initializeFocusSevenPublicationServer();
 
+// Define a route that returns the specified string in a text file
+app.get('/loaderio-3032b85b45eec7de7212b51aff606f58.txt', (req, res) => {
+  const content = 'loaderio-3032b85b45eec7de7212b51aff606f58';
+
+  // Set the response headers
+  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Disposition', 'inline');
+
+  // Send the content as a response
+  res.send(content);
+
+  // Alternatively, you can save the content to a file
+  // fs.writeFileSync('loaderio.txt', content, 'utf-8');
+});
 
 
 app.use('/api', routes);
