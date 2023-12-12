@@ -405,10 +405,12 @@ function doloading() {
 
 function removeloading() {
 	const fullSection = document.getElementById("full");
+	const wrapSection = document.getElementById("wrap");
 	if (fullSection) {
 
-
+		wrapSection.remove()
 		fullSection.remove();
+		
 	}
 }
 
