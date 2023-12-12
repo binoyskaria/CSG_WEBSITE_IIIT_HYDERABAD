@@ -2693,9 +2693,14 @@ button:disabled,
 	-webkit-flex-wrap: wrap;
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	postiion: relative;
-	margin: -2.5em 0 0 -2.5em;
+	
+	margin: -4em 0 0 -2.5em;
 }
+
+/* *+.tiles {
+	margin-top: 2em;
+} */
+
 
 .tiles article {
 	-moz-transition: -moz-transform 0.5s ease, opacity 0.5s ease;
@@ -2885,9 +2890,6 @@ body:not(.is-touch) .tiles article:hover .content {
 	opacity: 1;
 }
 
-*+.tiles {
-	margin-top: 2em;
-}
 
 body.is-preload .tiles article {
 	-moz-transform: scale(0.9);
@@ -3657,24 +3659,8 @@ body.is-menu-visible #menu .close {
 
 
 
-/* body {
-	background: #d1684e;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	-webkit-touch-callout: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-} */
 
-/* #wrap {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	overflow: hidden;
-} */
+
 
 #full{
 	position: fixed !important;
@@ -3700,29 +3686,8 @@ body.is-menu-visible #menu .close {
 
 
 
-/* #wrap {
-	position: fixed !important;
-	top: 0 !important;
-	left: 0 !important;
-	right: 0 !important;
-	bottom: 0 !important;
-	width: 100vw !important;
-	height: 100vh !important;
-	z-index: 999 !important;
+.cool{
+	font-size: xx-large;
 }
-
-
-#wrap canvas {
-	position: fixed !important;
-	top: 0 !important;
-	left: 0 !important;
-	right: 0 !important;
-	bottom: 0 !important;
-	width: 100vw !important;
-	height: 100vh !important;
-	z-index: 999 !important;
-} */
-
-
 
 

@@ -341,7 +341,7 @@ function removeloading() {
 
 		wrapSection.remove();
 		fullSection.remove();
-		
+
 	}
 }
 
@@ -354,7 +354,7 @@ function showLoadingSpinner() {
 // Function to hide the loading spinner
 function hideLoadingSpinner() {
 
-	 removeloading();
+	removeloading();
 
 }
 
@@ -390,14 +390,15 @@ async function fetchDataFromAPI() {
 // Function to create and append articles to the DOM
 function appendArticlesToDOM(articles) {
 	console.log('Appending articles to the DOM...');
-	const tilesSection = document.querySelector('.tiles');
+	const tilesSection = document.getElementsByClassName('tiles');
 	let currentStyleIndex = 0;
 
 	articles.forEach((article) => {
-		const articleElement = document.createElement('article');
-		articleElement.classList.add(`style${currentStyleIndex + 1}`);
+		if (article.description == "B.Tech.Hons.") {
+			const articleElement = document.createElement('article');
+			articleElement.classList.add(`style${currentStyleIndex + 1}`);
 
-		articleElement.innerHTML = `
+			articleElement.innerHTML = `
             <span class="image">
                 <img src="data:image/jpeg;base64,${article.imageData}" alt="${article.title}" />
             </span>
@@ -409,8 +410,48 @@ function appendArticlesToDOM(articles) {
             </a>
         `;
 
-		tilesSection.appendChild(articleElement);
-		currentStyleIndex = (currentStyleIndex + 1) % 6;
+			tilesSection[2].appendChild(articleElement);
+			currentStyleIndex = (currentStyleIndex + 1) % 6;
+		}
+		else if (article.description == "B.Tech.Hons.+MS") {
+			const articleElement = document.createElement('article');
+			articleElement.classList.add(`style${currentStyleIndex + 1}`);
+
+			articleElement.innerHTML = `
+            <span class="image">
+                <img src="data:image/jpeg;base64,${article.imageData}" alt="${article.title}" />
+            </span>
+            <a href="javascript:void(0);">
+                <h2>${article.title}</h2>
+                <div class="content">
+                    <p>${article.description}</p>
+                </div>
+            </a>
+        `;
+
+			tilesSection[1].appendChild(articleElement);
+			currentStyleIndex = (currentStyleIndex + 1) % 6;
+		}
+		else if (article.description == "Ph.D.") {
+			const articleElement = document.createElement('article');
+			articleElement.classList.add(`style${currentStyleIndex + 1}`);
+
+			articleElement.innerHTML = `
+            <span class="image">
+                <img src="data:image/jpeg;base64,${article.imageData}" alt="${article.title}" />
+            </span>
+            <a href="javascript:void(0);">
+                <h2>${article.title}</h2>
+                <div class="content">
+                    <p>${article.description}</p>
+                </div>
+            </a>
+        `;
+
+			tilesSection[0].appendChild(articleElement);
+			currentStyleIndex = (currentStyleIndex + 1) % 6;
+		}
+
 	});
 
 	console.log('Articles appended to the DOM.');
