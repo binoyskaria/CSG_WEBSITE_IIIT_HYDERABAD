@@ -4,4 +4,4 @@
 
 // const apiUrl ='https://malamute-devoted-fully.ngrok-free.app';
 
-const apiUrl = 'csg-website-iiit-hyderabad.zeabur.internal';
+const apiUrl = 'https://csg-website-iiit-hyderabad.zeabur.internal';
